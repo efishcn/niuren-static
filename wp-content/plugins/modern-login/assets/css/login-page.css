@@ -1,0 +1,402 @@
+/**
+ * Modern Login - 自定义登录页面样式
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+body.modern-login-page-body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ml-page-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+}
+
+.ml-page-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    padding: 40px;
+}
+
+.ml-page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.ml-page-header h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0 0 8px;
+}
+
+.ml-page-header p {
+    color: #888;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Tabs */
+.ml-page-tabs {
+    display: flex;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.ml-page-tab {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.3s;
+}
+
+.ml-page-tab:hover {
+    color: #667eea;
+}
+
+.ml-page-tab.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    font-weight: 600;
+}
+
+/* Forms */
+.ml-page-form {
+    display: none;
+}
+
+.ml-page-form.active {
+    display: block;
+}
+
+.ml-page-field {
+    margin-bottom: 18px;
+}
+
+.ml-page-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 500;
+}
+
+.ml-page-field input[type="text"],
+.ml-page-field input[type="password"],
+.ml-page-field input[type="email"],
+.ml-page-field input[type="tel"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #fafafa;
+}
+
+.ml-page-field input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.15);
+    background: #fff;
+}
+
+.ml-page-code-group {
+    display: flex;
+    gap: 10px;
+}
+
+.ml-page-code-group input {
+    flex: 1;
+}
+
+.ml-page-code-btn {
+    padding: 12px 16px;
+    background: #667eea;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 13px;
+    transition: background 0.3s;
+}
+
+.ml-page-code-btn:hover {
+    background: #5a6fd6;
+}
+
+.ml-page-code-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.ml-page-remember {
+    margin-bottom: 18px;
+}
+
+.ml-page-remember label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+}
+
+.ml-page-remember input[type="checkbox"] {
+    margin: 0;
+}
+
+.ml-page-submit {
+    width: 100% !important;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+}
+
+.ml-page-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(102,126,234,0.5);
+}
+
+.ml-page-submit:active {
+    transform: translateY(0);
+}
+
+.ml-page-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ml-page-links {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.ml-page-links a {
+    color: #667eea;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+.ml-page-links a:hover {
+    text-decoration: underline;
+}
+
+.ml-page-login-hint {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+}
+
+.ml-page-login-hint .ml-login-icon {
+    color: #667eea;
+    font-weight: 500;
+    margin: 0 4px;
+}
+
+/* Messages */
+.ml-page-msg {
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+
+.ml-page-msg .ml-msg-error {
+    padding: 10px 14px;
+    background: #fef2f2;
+    color: #dc2626;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+}
+
+.ml-page-msg .ml-msg-success {
+    padding: 10px 14px;
+    background: #f0fdf4;
+    color: #16a34a;
+    border-radius: 8px;
+    border: 1px solid #bbf7d0;
+}
+
+/* QR Code */
+.ml-qr-container {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.ml-qr-code {
+    margin: 0 auto 20px;
+    max-width: 220px;
+}
+
+.ml-qr-code img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+}
+
+.ml-qr-placeholder {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+    background: #f8f8f8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+    border: 1px dashed #ddd;
+}
+
+.ml-qr-status {
+    margin-bottom: 15px;
+}
+
+.ml-qr-status-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.ml-qr-status.qr-waiting .ml-qr-status-text {
+    color: #667eea;
+}
+
+.ml-qr-status.qr-scanned .ml-qr-status-text {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.ml-qr-status.qr-success .ml-qr-status-text {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.ml-qr-status.qr-expired .ml-qr-status-text {
+    color: #dc2626;
+}
+
+.ml-qr-refresh {
+    padding: 10px 24px;
+    background: #667eea;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.ml-qr-refresh:hover {
+    background: #5a6fd6;
+}
+
+/* Spinner */
+@keyframes ml-qr-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ml-qr-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ddd;
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: ml-qr-spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/* WeChat Quick Login */
+.ml-quick-wechat {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.ml-quick-wechat-avatar {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ml-quick-wechat-icon {
+    font-size: 36px;
+    color: #fff;
+    line-height: 1;
+}
+
+.ml-quick-wechat-desc {
+    font-size: 15px;
+    color: #333;
+    margin: 0 0 20px;
+    font-weight: 500;
+}
+
+.ml-quick-wechat-hint {
+    font-size: 12px;
+    color: #aaa;
+    margin: 12px 0 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+    .ml-page-container {
+        padding: 10px;
+    }
+
+    .ml-page-card {
+        padding: 24px 20px;
+        border-radius: 8px;
+    }
+
+    .ml-page-code-group {
+        flex-direction: column;
+    }
+
+    .ml-page-code-btn {
+        width: 100%;
+    }
+
+    .ml-qr-code {
+        max-width: 180px;
+    }
+
+    .ml-qr-placeholder {
+        width: 180px;
+        height: 180px;
+    }
+}

@@ -1,0 +1,120 @@
+/* AI视频公开浏览区 - 管理后台样式 */
+
+/* 模态框 */
+.aivpg-modal {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.aivpg-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.aivpg-modal-content h2 {
+    margin: 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+.aivpg-modal-content form {
+    padding: 20px;
+}
+
+.aivpg-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.aivpg-modal-close:hover,
+.aivpg-modal-close:focus {
+    color: #000;
+}
+
+/* 状态徽章 */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge.status-1 {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.status-0 {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* 表单样式 */
+.form-table th {
+    width: 150px;
+    padding: 15px 10px 15px 0;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+.form-table input[type="text"],
+.form-table input[type="number"],
+.form-table textarea,
+.form-table select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-table textarea {
+    min-height: 80px;
+}
+
+/* 按钮组 */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* 响应式 */
+@media (max-width: 782px) {
+    .aivpg-modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .form-table th,
+    .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .form-table input[type="text"],
+    .form-table input[type="number"],
+    .form-table textarea,
+    .form-table select {
+        max-width: 100%;
+    }
+}

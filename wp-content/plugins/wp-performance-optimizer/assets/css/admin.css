@@ -1,0 +1,91 @@
+/* WP Performance Optimizer Admin Styles */
+
+.wpo-settings {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.wpo-settings .form-table th {
+    width: 200px;
+    font-weight: 600;
+}
+
+.wpo-settings .form-table td {
+    padding: 15px 10px;
+}
+
+.wpo-settings input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.wpo-settings .description {
+    color: #646970;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.wpo-settings textarea.large-text {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+}
+
+.wpo-settings .submit {
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.wpo-settings .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 36px;
+    padding: 0 15px;
+}
+
+.wpo-settings .button .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Success/Error Messages */
+.wpo-message {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 4px;
+    display: none;
+}
+
+.wpo-message.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.wpo-message.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+/* Loading State */
+.wpo-settings .button.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.wpo-settings .button.loading::after {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 8px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: wpo-spin 0.6s linear infinite;
+}
+
+@keyframes wpo-spin {
+    to { transform: rotate(360deg); }
+}

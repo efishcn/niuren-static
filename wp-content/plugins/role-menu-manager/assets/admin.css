@@ -1,0 +1,127 @@
+.rmm-admin-wrap h1 {
+    margin-bottom: 20px;
+}
+
+.rmm-admin-layout {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.rmm-panel {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+#rmm-role-panel {
+    flex: 0 0 360px;
+}
+
+#rmm-menu-panel {
+    flex: 1;
+    min-width: 0;
+}
+
+.rmm-panel h2 {
+    margin-top: 0;
+    font-size: 15px;
+}
+
+.rmm-add-role {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.rmm-add-role input {
+    width: 130px;
+}
+
+.rmm-add-role button {
+    white-space: nowrap;
+}
+
+#rmm-role-table {
+    margin-top: 8px;
+}
+
+#rmm-role-table td {
+    vertical-align: middle;
+}
+
+.rmm-role-delete {
+    color: #b32d2e;
+    cursor: pointer;
+}
+
+.rmm-role-delete:hover {
+    color: #d63638;
+    text-decoration: underline;
+}
+
+.rmm-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.rmm-menu-header h2 {
+    margin: 0;
+}
+
+.rmm-menu-header select {
+    min-width: 180px;
+}
+
+#rmm-menu-tree {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #dcdcde;
+    padding: 10px;
+    background: #f6f7f7;
+}
+
+.rmm-menu-item {
+    margin: 2px 0;
+}
+
+.rmm-menu-item label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 4px;
+    border-radius: 2px;
+}
+
+.rmm-menu-item label:hover {
+    background: #f0f0f1;
+}
+
+.rmm-submenu-list {
+    margin-left: 28px;
+}
+
+.rmm-submenu-item label {
+    font-weight: 400;
+}
+
+.rmm-submenu-item input[type="checkbox"] {
+    margin: 0 4px 0 0;
+}
+
+.rmm-save-bar {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#rmm-save-status {
+    color: #007017;
+    font-weight: 500;
+}

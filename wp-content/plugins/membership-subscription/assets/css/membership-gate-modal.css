@@ -1,0 +1,33 @@
+/* 会员订阅 Gate 通用拦截弹窗 v2.0 — 供所有插件共用 */
+
+.mgate-overlay,.mgate-overlay *{box-sizing:border-box}
+.mgate-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);z-index:999991;display:flex;align-items:center;justify-content:center;animation:mgateFadeIn .2s ease}
+.mgate-modal{background:#fff;border-radius:14px;width:420px;max-width:92vw;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;animation:mgateSlideIn .25s ease;line-height:1.5}
+.mgate-header{padding:24px 28px 0;text-align:center}
+.mgate-icon{font-size:44px;margin-bottom:8px;line-height:normal}
+.mgate-title{font-size:20px;font-weight:700;color:#2c3e50;margin:0 0 6px}
+.mgate-subtitle{font-size:14px;color:#888;margin:0;line-height:1.5}
+.mgate-body{padding:20px 28px}
+.mgate-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.mgate-info-item{background:#f8f9fa;border-radius:8px;padding:12px;text-align:center}
+.mgate-info-label{font-size:12px;color:#999;margin-bottom:4px}
+.mgate-info-value{font-size:18px;font-weight:700;color:#333}
+.mgate-info-value.danger{color:#e74c3c}
+.mgate-info-value.warn{color:#f39c12}
+.mgate-footer{padding:0 28px 24px;display:flex;flex-direction:column;gap:8px}
+.mgate-btn{display:block;width:100%;padding:12px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all .2s}
+.mgate-btn-primary{background:#ff6b35;color:#fff}
+.mgate-btn-primary:hover{background:#e55d2b;color:#fff}
+.mgate-btn-secondary{background:#667eea;color:#fff}
+.mgate-btn-secondary:hover{background:#5568d3;color:#fff}
+.mgate-btn-outline{background:#fff;color:#666;border:1px solid #ddd}
+.mgate-btn-outline:hover{background:#f5f5f5}
+.mgate-btn-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;color:#bbb;cursor:pointer;padding:4px 8px;line-height:1}
+.mgate-btn-close:hover{color:#666}
+
+@keyframes mgateFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes mgateSlideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:480px){
+    .mgate-info-grid{grid-template-columns:1fr}
+}

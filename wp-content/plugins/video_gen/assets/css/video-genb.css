@@ -1,0 +1,854 @@
+/* 基础变量定义 - 只在插件页面生效 */
+.video-gen-admin-page {
+    --primary-color: #1890ff;
+    --primary-gradient: linear-gradient(135deg, #1890ff 0%, #2170f6 100%);
+    --primary-gradient-hover: linear-gradient(135deg, #40a9ff 0%, #5cdbd3 100%);
+    --success-color: #52c41a;
+    --error-color: #f5222d;
+    --warning-color: #fa8c16;
+    --border-radius: 12px;
+    --border-radius-small: 8px;
+    --border-radius-large: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-light: 0 2px 8px rgba(24, 144, 255, 0.08);
+    --shadow-medium: 0 4px 16px rgba(24, 144, 255, 0.12);
+    --shadow-heavy: 0 8px 32px rgba(24, 144, 255, 0.16);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* 页面容器 - 只在插件页面生效 */
+.video-gen-admin-page .video-gen-wrap {
+    padding: 24px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e6f7ff 50%, #f0f9ff 100%);
+    min-height: 500px;
+    border-radius: var(--border-radius);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.video-gen-admin-page .video-gen-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: var(--primary-gradient);
+    opacity: 0.03;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    z-index: 0;
+}
+
+.video-gen-admin-page .video-gen-wrap > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* 卡片容器 - 只在插件页面生效 */
+.video-gen-admin-page .video-card {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-gen-admin-page .video-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-gradient);
+    z-index: 1;
+}
+
+.video-gen-admin-page .video-card:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+    transition: var(--transition);
+}
+
+/* 现代风格选择器 - 文案来源方式 */
+.video-gen-admin-page .content-mode-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.video-gen-admin-page .mode-option-card input[type="radio"] {
+    display: none;
+}
+
+.video-gen-admin-page .mode-card-label {
+    display: block;
+    padding: 15px;
+    background: white;
+    border: 2px solid #e1e8f0;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-gen-admin-page .mode-card-label:hover {
+    border-color: var(--primary-color);
+    background: #f8faff;
+}
+
+.video-gen-admin-page .mode-option-card input[type="radio"]:checked + .mode-card-label {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.video-gen-admin-page .mode-option-card input[type="radio"]:checked + .mode-card-label .mode-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.video-gen-admin-page .mode-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.video-gen-admin-page .mode-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.video-gen-admin-page .mode-description {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* 现代风格选择器 - 内容来源 */
+.video-gen-admin-page .content-source-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.video-gen-admin-page .source-option-card input[type="radio"] {
+    display: none;
+}
+
+.video-gen-admin-page .source-card-label {
+    display: block;
+    padding: 12px;
+    background: white;
+    border: 2px solid #e1e8f0;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-gen-admin-page .source-card-label:hover {
+    border-color: var(--primary-color);
+    background: #f8faff;
+}
+
+.video-gen-admin-page .source-option-card input[type="radio"]:checked + .source-card-label {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.video-gen-admin-page .source-option-card input[type="radio"]:checked + .source-card-label .source-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.video-gen-admin-page .source-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.video-gen-admin-page .source-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.video-gen-admin-page .source-description {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* 开关按钮 */
+.video-gen-admin-page .switch-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: var(--border-radius-small);
+    border: 1px solid #e1e8f0;
+}
+
+.video-gen-admin-page .switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+
+.video-gen-admin-page .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.video-gen-admin-page .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ccc;
+    transition: var(--transition);
+    border-radius: 24px;
+}
+
+.video-gen-admin-page .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+
+.video-gen-admin-page input:checked + .slider {
+    background: var(--primary-color);
+}
+
+.video-gen-admin-page input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* 提交按钮 */
+.video-gen-admin-page .submit-button {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.video-gen-admin-page .submit-button:hover {
+    background: var(--primary-gradient-hover);
+    transform: translateY(-1px);
+}
+
+.video-gen-admin-page .submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 平台选择器 */
+.video-gen-admin-page .platform-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.video-gen-admin-page .selected-platform {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius-small);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.video-gen-admin-page .selected-platform:hover {
+    border-color: var(--primary-color);
+}
+
+.video-gen-admin-page .change-platform-btn {
+    padding: 10px 16px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13px;
+}
+
+.video-gen-admin-page .change-platform-btn:hover {
+    background: #40a9ff;
+}
+
+/* 高级设置容器 */
+.video-gen-admin-page .advanced-settings-container {
+    background: white;
+    border: 1px solid #e1e8f0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.video-gen-admin-page .advanced-settings-header {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e1e8f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.video-gen-admin-page .advanced-settings-header:hover {
+    background: #f0f2f5;
+}
+
+.video-gen-admin-page .settings-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.video-gen-admin-page .toggle-icon {
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+
+.video-gen-admin-page .advanced-settings-header.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.video-gen-admin-page .advanced-settings-content {
+    padding: 20px;
+}
+
+.video-gen-admin-page .settings-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: var(--border-radius-small);
+}
+
+.video-gen-admin-page .settings-group:last-child {
+    margin-bottom: 0;
+}
+
+.video-gen-admin-page .group-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1f2937;
+}
+
+/* 弹窗样式 */
+.video-gen-admin-page #custom-modal,
+.video-gen-admin-page #platform-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.video-gen-admin-page #platform-modal .modal-content {
+    background: white;
+    padding: 0;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.video-gen-admin-page #platform-modal .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e1e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.video-gen-admin-page #platform-modal h2 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.video-gen-admin-page .modal-close {
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.video-gen-admin-page .modal-close:hover {
+    color: var(--error-color);
+}
+
+.video-gen-admin-page .platform-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 20px;
+}
+
+.video-gen-admin-page .platform-option {
+    padding: 12px;
+    background: #f8f9fa;
+    border: 1px solid #e1e8f0;
+    border-radius: var(--border-radius-small);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13px;
+}
+
+.video-gen-admin-page .platform-option:hover {
+    border-color: var(--primary-color);
+    background: #f0f2f5;
+    color: var(--primary-color);
+}
+
+/* 风格选择样式 */
+.video-gen-admin-page .checkbox-style-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.video-gen-admin-page .checkbox-style input[type="checkbox"] {
+    display: none;
+}
+
+.video-gen-admin-page .checkbox-style label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: white;
+    border: 1px solid #e1e8f0;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 12px;
+    text-align: center;
+    min-height: 40px;
+}
+
+.video-gen-admin-page .checkbox-style label:hover {
+    border-color: var(--primary-color);
+    background: #f8faff;
+}
+
+.video-gen-admin-page .checkbox-style input[type="checkbox"]:checked + label {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* 列表页样式 */
+.video-gen-admin-page .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.video-gen-admin-page .status-badge.success {
+    background: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+    border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+.video-gen-admin-page .status-badge.error {
+    background: rgba(245, 34, 45, 0.1);
+    color: #f5222d;
+    border: 1px solid rgba(245, 34, 45, 0.3);
+}
+
+.video-gen-admin-page .status-badge.processing {
+    background: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    border: 1px solid rgba(24, 144, 255, 0.3);
+}
+
+.video-gen-admin-page .status-badge.waiting {
+    background: rgba(250, 140, 22, 0.1);
+    color: #fa8c16;
+    border: 1px solid rgba(250, 140, 22, 0.3);
+}
+
+/* 导航菜单样式 */
+.video-gen-admin-page .dh-nav {
+    margin: 20px 0;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 5px;
+    border: 1px solid #e1e8f0;
+}
+
+.video-gen-admin-page .dh-nav ul {
+    display: flex;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.video-gen-admin-page .dh-nav li {
+    margin: 0;
+}
+
+.video-gen-admin-page .dh-nav a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #64748b;
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.video-gen-admin-page .dh-nav a:hover {
+    color: var(--primary-color);
+    background: rgba(24, 144, 255, 0.05);
+}
+
+.video-gen-admin-page .dh-nav a.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 内容区域样式 */
+.video-gen-admin-page .dh-content {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #e1e8f0;
+}
+
+/* 操作按钮样式 */
+.video-gen-admin-page .dh-action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-small);
+    font-size: 12px;
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    gap: 4px;
+    margin: 0 3px;
+}
+
+.video-gen-admin-page .dh-action-btn.generate {
+    color: var(--primary-color);
+    background: rgba(24, 144, 255, 0.1);
+    border-color: rgba(24, 144, 255, 0.3);
+}
+
+.video-gen-admin-page .dh-action-btn.generate:hover {
+    background: rgba(24, 144, 255, 0.2);
+    border-color: var(--primary-color);
+}
+
+.video-gen-admin-page .dh-action-btn.delete {
+    color: var(--error-color);
+    background: rgba(245, 34, 45, 0.1);
+    border-color: rgba(245, 34, 45, 0.3);
+}
+
+.video-gen-admin-page .dh-action-btn.delete:hover {
+    background: rgba(245, 34, 45, 0.2);
+    border-color: var(--error-color);
+}
+
+/* 单选按钮样式 */
+.video-gen-admin-page .tab-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.video-gen-admin-page .tab-buttons label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 15px;
+    background: white;
+    border: 1px solid #e1e8f0;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.video-gen-admin-page .tab-buttons label:hover {
+    border-color: var(--primary-color);
+    background: #f8faff;
+}
+
+.video-gen-admin-page .tab-buttons input[type="radio"] {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+}
+
+.video-gen-admin-page .tab-buttons input[type="radio"]:checked {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+}
+
+.video-gen-admin-page .tab-buttons input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* 音频选择容器 */
+.video-gen-admin-page .audio-select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.video-gen-admin-page .audio-select {
+    flex: 1;
+    max-width: 300px;
+}
+
+.video-gen-admin-page .preview-audio {
+    padding: 6px 12px;
+    background: rgba(24, 144, 255, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(24, 144, 255, 0.3);
+    border-radius: var(--border-radius-small);
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.video-gen-admin-page .preview-audio:hover {
+    background: rgba(24, 144, 255, 0.2);
+}
+
+/* 浮动按钮 */
+.video-gen-admin-page .floating-action-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-medium);
+    z-index: 1000;
+}
+
+.video-gen-admin-page .floating-action-btn:hover {
+    background: var(--primary-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(24, 144, 255, 0.3);
+}
+
+/* 视频播放器样式 */
+.video-gen-admin-page .video-player-container {
+    margin: 10px 0;
+}
+
+.video-gen-admin-page .video-player {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-small);
+}
+
+.video-gen-admin-page .video-actions {
+    margin-top: 10px;
+}
+
+.video-gen-admin-page .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.video-gen-admin-page .download-btn:hover {
+    background: #40a9ff;
+    color: white;
+}
+
+/* 详情按钮样式 */
+.video-gen-admin-page .view-details-btn,
+.video-gen-admin-page .modern-detail-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(248, 250, 255, 0.9) 100%);
+    color: var(--primary-color);
+    border: 1px solid rgba(24, 144, 255, 0.2);
+    border-radius: var(--border-radius-small);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-gen-admin-page .view-details-btn::before,
+.video-gen-admin-page .modern-detail-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.video-gen-admin-page .view-details-btn:hover,
+.video-gen-admin-page .modern-detail-btn:hover {
+    background: linear-gradient(135deg, rgba(24, 144, 255, 0.1) 0%, rgba(54, 207, 201, 0.05) 100%);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-light);
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.video-gen-admin-page .view-details-btn:hover::before,
+.video-gen-admin-page .modern-detail-btn:hover::before {
+    left: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .video-gen-admin-page .content-mode-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-gen-admin-page .content-source-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-gen-admin-page .tab-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .video-gen-admin-page .platform-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .video-gen-admin-page .floating-action-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* 动画效果 */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.video-gen-admin-page .status-badge.processing::before,
+.video-gen-admin-page .status-badge.waiting::before {
+    animation: pulse 2s infinite;
+}
+
+/* 确保不影响其他页面的样式重置 */
+.video-gen-admin-page * {
+    box-sizing: border-box;
+}

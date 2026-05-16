@@ -1,0 +1,416 @@
+/* myCred API Manager 管理界面样式 */
+
+.mycred-api-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.mycred-api-card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.mycred-api-card h3 {
+    margin-top: 20px;
+    color: #23282d;
+}
+
+/* 搜索表单 */
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-form input[type="text"],
+.search-form input[type="number"],
+.search-form select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* 权限选择区域 */
+.endpoints-checkboxes {
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.endpoints-checkboxes label {
+    display: block;
+    padding: 5px 0;
+}
+
+.endpoints-checkboxes input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.endpoints-checkboxes hr {
+    margin: 10px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+/* 徽章样式 */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    background-color: #0073aa;
+    border-radius: 3px;
+    margin: 2px;
+}
+
+.badge-success {
+    background-color: #46b450;
+}
+
+.badge-danger {
+    background-color: #dc3232;
+}
+
+/* 状态标签 */
+.status-active {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.status-inactive {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+/* 统计信息 */
+.stats-info {
+    padding: 10px;
+    background: #f0f6fc;
+    border-left: 4px solid #0073aa;
+    margin: 15px 0;
+}
+
+.stats-info strong {
+    color: #0073aa;
+    font-size: 16px;
+}
+
+/* API文档代码块 */
+.api-doc-code {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-left: 4px solid #0073aa;
+    padding: 15px;
+    margin: 10px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.api-doc-code strong {
+    color: #0073aa;
+}
+
+/* 表格增强 */
+.wp-list-table th {
+    font-weight: 600;
+}
+
+.wp-list-table td {
+    vertical-align: middle;
+}
+
+/* 按钮样式 */
+.button {
+    margin: 0 5px 0 0;
+}
+
+.edit-permission {
+    color: #0073aa;
+}
+
+.delete-permission {
+    color: #dc3232;
+}
+
+.delete-permission:hover {
+    color: #a00;
+}
+
+/* 提示信息 */
+.notice {
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #0073aa;
+    background: #fff;
+}
+
+.notice-info {
+    border-left-color: #00a0d2;
+    background: #f0f6fc;
+}
+
+.notice-success {
+    border-left-color: #46b450;
+    background: #ecf7ed;
+}
+
+.notice-warning {
+    border-left-color: #ffb900;
+    background: #fff8e5;
+}
+
+.notice-error {
+    border-left-color: #dc3232;
+    background: #fef7f7;
+}
+
+/* 分页导航 */
+.tablenav {
+    margin: 15px 0;
+}
+
+.tablenav-pages {
+    float: right;
+}
+
+.tablenav-pages a,
+.tablenav-pages span {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    background: #fff;
+    text-decoration: none;
+    color: #0073aa;
+}
+
+.tablenav-pages span.current {
+    background: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 782px) {
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-form input,
+    .search-form select,
+    .search-form button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .wp-list-table {
+        font-size: 12px;
+    }
+    
+    .wp-list-table th,
+    .wp-list-table td {
+        padding: 8px 4px;
+    }
+}
+
+/* 加载动画 */
+.mycred-api-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,115,170,.3);
+    border-radius: 50%;
+    border-top-color: #0073aa;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 用户选择器样式 */
+.user-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* .user-selector input[type="text"] {
+    flex: 1;
+} */
+
+/* 弹层样式 */
+.mycred-modal {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.mycred-modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.mycred-modal-header {
+    padding: 15px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mycred-modal-header h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+}
+
+.mycred-modal-close {
+    color: #666;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.mycred-modal-close:hover,
+.mycred-modal-close:focus {
+    color: #000;
+}
+
+.mycred-modal-body {
+    padding: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* 用户搜索框 */
+.user-search-box {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.user-search-box input {
+    flex: 1;
+}
+
+/* 用户列表容器 */
+#user-list-container {
+    min-height: 200px;
+}
+
+#user-list-container .loading,
+#user-list-container .error {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 14px;
+}
+
+#user-list-container .error {
+    color: #dc3232;
+}
+
+/* 用户列表表格 */
+#user-list-container table {
+    margin: 0;
+}
+
+#user-list-container table th {
+    background: #f9f9f9;
+}
+
+.select-user-btn {
+    padding: 4px 12px !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+
+/* 分页样式 */
+.user-pagination {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.user-pagination .tablenav-pages {
+    float: none;
+    display: inline-block;
+}
+
+.user-pagination .page-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: #0073aa;
+    transition: all 0.2s;
+}
+
+.user-pagination .page-btn:hover {
+    background: #f0f0f1;
+    border-color: #0073aa;
+}
+
+.user-pagination .current-page {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 2px;
+    background: #0073aa;
+    color: #fff;
+    border: 1px solid #0073aa;
+    font-weight: 600;
+}
+
+/* 响应式 - 弹层 */
+@media screen and (max-width: 782px) {
+    .mycred-modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .user-search-box {
+        flex-direction: column;
+    }
+    
+    .user-search-box input,
+    .user-search-box button {
+        width: 100%;
+    }
+    
+    .user-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .user-selector button {
+        width: 100%;
+    }
+}

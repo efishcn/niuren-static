@@ -1,0 +1,333 @@
+/**
+ * Modern Invite System — Frontend Shared CSS
+ * Clean, professional design for user-facing pages
+ */
+
+/* ===== Shared Utility Classes ===== */
+.mis-login-notice {
+    max-width: 640px;
+    margin: 40px auto;
+    background: #fffbeb;
+    color: #92400e;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    border: 1px solid #fde68a;
+}
+
+/* Toast notifications */
+.mis-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    animation: misToastIn 0.3s ease-out;
+}
+.mis-toast.success { background: #10b981; }
+.mis-toast.error { background: #ef4444; }
+@keyframes misToastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ===== Common panel wrapper ===== */
+.mis-viral-panel {
+    max-width: 640px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1e293b;
+}
+.mis-viral-panel-header { margin-bottom: 20px; }
+.mis-viral-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    color: #1e293b;
+}
+.mis-viral-section-icon { font-size: 20px; }
+
+/* ===== Common stat cards ===== */
+.mis-viral-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.mis-viral-stat {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+.mis-viral-stat-icon-wrap {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 16px;
+    background: #f1f5f9;
+}
+.mis-viral-stat-icon-wrap.blue { background: #eff6ff; }
+.mis-viral-stat-icon-wrap.green { background: #ecfdf5; }
+.mis-viral-stat-icon-wrap.gold { background: #fffbeb; }
+.mis-viral-stat-icon-wrap.coral { background: #fff5f5; }
+.mis-viral-stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+.mis-viral-stat-num.gold-text { color: #d97706; }
+.mis-viral-stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+/* ===== Common table ===== */
+.mis-viral-table-wrap { overflow-x: auto; }
+.mis-viral-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.mis-viral-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid #f1f5f9;
+}
+.mis-viral-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #f8fafc;
+    color: #475569;
+}
+.mis-viral-table tbody tr:hover { background: #f8fafc; }
+.mis-viral-td-time { color: #94a3b8; font-size: 13px; }
+.mis-viral-td-amount { color: #059669; font-weight: 700; }
+.mis-viral-level-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.mis-viral-level-tag.l1 { background: #fee2e2; color: #dc2626; }
+.mis-viral-level-tag.l2 { background: #fef3c7; color: #92400e; }
+.mis-viral-status-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.mis-viral-status-tag.settled { background: #d1fae5; color: #065f46; }
+.mis-viral-status-tag.pending { background: #fef3c7; color: #92400e; }
+
+/* ===== Pagination ===== */
+.mis-viral-pagination {
+    margin-top: 16px;
+    text-align: center;
+}
+.mis-viral-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px; height: 34px;
+    border-radius: 8px;
+    margin: 0 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    transition: all 0.15s;
+}
+.mis-viral-pagination .page-numbers:hover { background: #f1f5f9; }
+.mis-viral-pagination .page-numbers.current {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+}
+
+/* ===== Common form elements ===== */
+.mis-viral-form-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+}
+.mis-viral-form-group { margin-bottom: 14px; }
+.mis-viral-form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+}
+.mis-viral-form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e293b;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+.mis-viral-form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.mis-viral-form-input::placeholder { color: #cbd5e1; }
+
+/* Common submit button */
+.mis-viral-submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.mis-viral-submit-btn:hover { background: #1d4ed8; }
+.mis-viral-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ===== Alert ===== */
+.mis-viral-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+.mis-viral-alert-icon { font-size: 20px; flex-shrink: 0; }
+.mis-viral-alert-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    background: #2563eb;
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+.mis-viral-alert-btn:hover { background: #1d4ed8; }
+
+/* ===== Success card ===== */
+.mis-viral-success-card {
+    text-align: center;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+.mis-viral-success-icon { font-size: 36px; margin-bottom: 8px; }
+
+/* ===== Empty state ===== */
+.mis-viral-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+}
+.mis-viral-empty-icon { font-size: 40px; margin-bottom: 12px; }
+.mis-viral-empty p { margin: 0; font-size: 15px; }
+.mis-viral-empty-sub { font-size: 13px !important; margin-top: 6px !important; opacity: 0.7; }
+
+/* ===== Section title ===== */
+.mis-viral-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #1e293b;
+}
+.mis-viral-count-tag {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 2px 10px;
+    border-radius: 100px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    .mis-viral-panel {
+        padding: 20px 16px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .mis-viral-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .mis-viral-stat {
+        padding: 12px 8px;
+    }
+    .mis-viral-stat-num {
+        font-size: 18px;
+    }
+    .mis-login-notice {
+        margin: 20px 12px;
+        padding: 20px 16px;
+        font-size: 14px;
+    }
+}
+
+@media print {
+    .mis-viral-share-bar,
+    .mis-viral-footer-cta,
+    .mis-toast {
+        display: none !important;
+    }
+}

@@ -1,0 +1,492 @@
+/* AI视频公开浏览区 - 前端样式 */
+
+.aivpg-gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 筛选器 */
+.aivpg-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.aivpg-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.aivpg-filter-group label {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.aivpg-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.aivpg-search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px;
+}
+
+.aivpg-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.aivpg-btn-primary {
+    background: #0073aa;
+    color: white;
+}
+
+.aivpg-btn-primary:hover {
+    background: #005a87;
+}
+
+.aivpg-btn-success {
+    background: #46b450;
+    color: white;
+}
+
+.aivpg-btn-success:hover {
+    background: #3a9642;
+}
+
+/* 视频网格 */
+.aivpg-video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.aivpg-video-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.aivpg-video-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.aivpg-video-thumbnail {
+    position: relative;
+    padding-bottom: 56.25%;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+.aivpg-video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.aivpg-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.aivpg-video-item:hover .aivpg-video-overlay {
+    opacity: 1;
+}
+
+.aivpg-play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.aivpg-video-info {
+    padding: 15px;
+}
+
+.aivpg-video-title {
+    font-size: 16px;
+    margin: 0 0 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.aivpg-video-category {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* 加载和无结果 */
+.aivpg-loading,
+.aivpg-no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* 分页 */
+.aivpg-pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.aivpg-pagination-inner {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.aivpg-page-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.aivpg-page-btn:hover {
+    background: #f5f5f5;
+}
+
+.aivpg-page-btn.active {
+    background: #0073aa;
+    color: white;
+    border-color: #0073aa;
+}
+
+/* 模态框 */
+.aivpg-modal {
+    display: none !important;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 当jQuery fadeIn时强制显示 */
+.aivpg-modal[style*="display: block"],
+.aivpg-modal[style*="display:block"] {
+    display: block !important;
+}
+
+.aivpg-modal-content {
+    position: relative;
+    background: white;
+    margin: 50px auto;
+    max-width: 900px;
+    border-radius: 8px;
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.aivpg-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.aivpg-modal-close:hover {
+    color: #000;
+}
+
+.aivpg-modal-body {
+    padding: 20px;
+}
+
+.aivpg-modal-video video {
+    width: 100%;
+    max-height: 500px;
+    background: #000;
+    border-radius: 4px;
+}
+
+.aivpg-modal-info {
+    padding: 20px 0;
+}
+
+.aivpg-modal-info h2 {
+    margin: 0 0 15px;
+}
+
+.aivpg-video-meta {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.aivpg-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.aivpg-video-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.aivpg-prompt-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.aivpg-prompt-section h3 {
+    margin: 0 0 15px;
+    font-size: 18px;
+}
+
+.aivpg-prompt-locked {
+    text-align: center;
+    padding: 30px;
+}
+
+.aivpg-prompt-locked p {
+    margin: 10px 0;
+}
+
+.aivpg-prompt-content {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.aivpg-modal-actions {
+    text-align: center;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .aivpg-video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .aivpg-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .aivpg-filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .aivpg-search-input {
+        width: 100%;
+    }
+    
+    .aivpg-modal-content {
+        margin: 20px;
+    }
+}
+/* ========== 瀑布流和优化样式 ========== */
+
+/* 瀑布流加载更多 */
+.aivpg-loading-more {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.aivpg-no-more {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    color: #999;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+
+/* 防止背景滚动 */
+body.aivpg-modal-open {
+    overflow: hidden;
+}
+
+/* 优化模态框定位 - 瀑布流版本 - 支持滚动 */
+.aivpg-modal-content {
+    position: relative;
+    margin: 50px auto 50px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+}
+
+/* 模态框内容的内边距 */
+.aivpg-modal-body {
+    overflow: visible;
+    max-height: 600px;
+}
+
+/* 通知模态框样式 */
+.aivpg-notification-modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+}
+
+.aivpg-notification-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.aivpg-notification-content {
+    position: relative;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: aivpgNotificationIn 0.2s ease-out;
+}
+
+@keyframes aivpgNotificationIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.aivpg-notification-content h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.aivpg-notification-content p {
+    margin: 0 0 20px 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+.aivpg-notification-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.aivpg-notification-btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.aivpg-btn-cancel {
+    background: #f1f1f1;
+    color: #374151;
+}
+
+.aivpg-btn-cancel:hover {
+    background: #e5e5e5;
+}
+
+.aivpg-btn-confirm,
+.aivpg-btn-ok {
+    background: linear-gradient(135deg, #1890ff 0%, #2170f6 100%);
+    color: white;
+}
+
+.aivpg-btn-confirm:hover,
+.aivpg-btn-ok:hover {
+    background: linear-gradient(135deg, #1478d4 0%, #2db8b2 100%);
+}
+
+/* 视频项悬浮动画增强 */
+.aivpg-video-item {
+    background: white;
+}
+
+.aivpg-video-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* 播放按钮优化 */
+.aivpg-play-btn {
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.aivpg-play-btn:hover {
+    transform: scale(1.1);
+    background: white;
+}
+

@@ -1,0 +1,369 @@
+/* 表单页面布局 */
+.dh-form {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+}
+
+/* 表单标题 */
+.dh-form h1 {
+    font-size: 24px;
+    color: #1d2327;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 积分提示 */
+.notice.notice-info {
+    border-left-color: var(--primary-color);
+    background: #f0f9ff;
+    margin: 0 0 24px;
+    padding: 12px 16px;
+}
+
+/* 表单字段布局 */
+.form-table {
+    margin-top: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.form-table th {
+    padding: 24px 16px 24px 0;
+    width: 200px;
+    font-weight: 600;
+    color: #1d2327;
+    vertical-align: top;
+    text-align: left;
+}
+
+.form-table td {
+    padding: 20px 10px;
+    vertical-align: top;
+}
+
+/* 输入控件样式 */
+.regular-text,
+textarea,
+select {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+}
+
+.regular-text:hover,
+textarea:hover,
+select:hover {
+    border-color: var(--hover-color);
+}
+
+.regular-text:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+    outline: none;
+}
+
+/* 文本域特殊样式 */
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* 帮助文本 */
+.description {
+    margin-top: 8px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* 提交按钮区域 */
+.submit {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+/* 按钮组布局 */
+.submit .dh-btn + .dh-btn {
+    margin-left: 16px;
+}
+
+/* 按钮基础样式 */
+.dh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    height: auto;
+}
+
+/* 主要按钮 */
+.dh-btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.dh-btn-primary:hover,
+.dh-btn-primary:focus {
+    background: var(--hover-color);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* 次要按钮 */
+.dh-btn-default {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    color: #666;
+}
+
+.dh-btn-default:hover,
+.dh-btn-default:focus {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* 上传按钮组 */
+.dh-upload-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dh-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dh-upload-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* 浮动添加按钮 */
+.dh-add-new {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.dh-add-new:hover {
+    background: var(--hover-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 操作按钮组 */
+.dh-action-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* 小型按钮 */
+.dh-btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+/* 禁用状态 */
+.dh-btn[disabled],
+.dh-btn-primary[disabled] {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+/* 媒体上传相关 */
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #666;
+    font-size: 14px;
+}
+
+.upload-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.upload-btn .dashicons {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+/* 预览区域 */
+.preview-area {
+    margin-top: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #d9d9d9;
+}
+
+.preview-area video,
+.preview-area audio,
+.preview-area img {
+    max-width: 100%;
+    border-radius: 6px;
+    display: block;
+}
+
+/* 必填标记 */
+.required {
+    color: #ff4d4f;
+    margin-left: 4px;
+    font-family: SimSun, sans-serif;
+}
+
+/* 表单分组 */
+.form-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* 错误提示 */
+.error-message {
+    color: var(--error-color);
+    margin-top: 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff2f0;
+    border: 1px solid #ffccc7;
+    border-radius: 8px;
+}
+
+.error-message .dashicons {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+/* 表单验证 */
+.form-invalid {
+    border-color: var(--error-color) !important;
+}
+
+.form-invalid:focus {
+    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1) !important;
+}
+
+/* 加载状态 */
+.form-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* 单选框和复选框组 */
+.radio-group,
+.checkbox-group {
+    display: flex;
+    gap: 16px;
+    margin: 8px 0;
+}
+
+.radio-group label,
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"],
+.checkbox-group input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* 数字输入框组 */
+.number-input-group {
+    display: flex;
+    align-items: center;
+    max-width: 200px;
+}
+
+.number-input-group input {
+    width: 80px;
+    text-align: center;
+    margin: 0 8px;
+}
+
+.number-input-group button {
+    padding: 8px 12px;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 782px) {
+    .form-table th {
+        width: auto;
+        display: block;
+        padding-bottom: 0;
+    }
+
+    .form-table td {
+        display: block;
+        padding-top: 8px;
+        padding-bottom: 20px;
+    }
+
+    .regular-text,
+    textarea,
+    select {
+        max-width: none;
+    }
+
+    .submit {
+        margin-top: 24px;
+        padding-top: 20px;
+    }
+}

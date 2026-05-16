@@ -1,0 +1,484 @@
+/* 管理页面容器 */
+.rcp-admin-wrap {
+    margin: 20px 20px 0 0;
+}
+
+/* 表格样式优化 */
+.rcp-codes-table-wrap {
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.rcp-codes-table-wrap table {
+    margin: 0;
+}
+
+/* 弹层基础样式 */
+.rcp-modal {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 弹层内容 */
+.rcp-modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s;
+    position: relative;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 大弹层 */
+.rcp-modal-large {
+    max-width: 900px;
+}
+
+/* 小弹层 */
+.rcp-modal-small {
+    max-width: 400px;
+    text-align: center;
+}
+
+/* 关闭按钮 */
+.rcp-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.rcp-modal-close:hover,
+.rcp-modal-close:focus {
+    color: #000;
+}
+
+/* 弹层标题 */
+.rcp-modal-content h2 {
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* 表单组 */
+.rcp-form-group {
+    margin-bottom: 20px;
+}
+
+.rcp-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.rcp-form-group .required {
+    color: #d63638;
+}
+
+.rcp-form-group input[type="text"],
+.rcp-form-group input[type="number"],
+.rcp-form-group input[type="datetime-local"],
+.rcp-form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.rcp-form-group input:focus,
+.rcp-form-group select:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* 表单操作按钮 */
+.rcp-form-actions {
+    margin-top: 30px;
+    text-align: right;
+    border-top: 1px solid #dcdcde;
+    padding-top: 20px;
+}
+
+.rcp-form-actions .button {
+    margin-left: 10px;
+}
+
+/* 消息弹层样式 */
+.rcp-message-modal .rcp-modal-content {
+    padding: 40px 30px;
+}
+
+.rcp-message-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.rcp-message-icon:before {
+    content: '✓';
+    color: #fff;
+}
+
+.rcp-message-icon.success {
+    background: #00a32a;
+}
+
+.rcp-message-icon.error:before {
+    content: '✕';
+}
+
+.rcp-message-icon.error {
+    background: #d63638;
+}
+
+.rcp-message-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #1d2327;
+}
+
+.rcp-message-actions {
+    text-align: center;
+}
+
+/* 领取详情表格 */
+#rcp-records-content {
+    margin-top: 20px;
+}
+
+#rcp-records-content table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#rcp-records-pagination {
+    padding: 10px;
+    border-top: 1px solid #dcdcde;
+}
+
+/* 操作按钮样式优化 */
+.rcp-view-records-btn {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.rcp-view-records-btn:hover {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+.rcp-edit-code-btn {
+    background: #50575e;
+    border-color: #50575e;
+    color: #fff;
+}
+
+.rcp-edit-code-btn:hover {
+    background: #3c434a;
+    border-color: #3c434a;
+    color: #fff;
+}
+
+.rcp-delete-code-btn {
+    background: #d63638;
+    border-color: #d63638;
+    color: #fff;
+}
+
+.rcp-delete-code-btn:hover {
+    background: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+}
+
+/* 用户名tooltip样式 */
+.rcp-username {
+    cursor: help;
+    border-bottom: 1px dotted #666;
+    position: relative;
+}
+
+.rcp-username:hover {
+    color: #2271b1;
+}
+
+/* 积分范围组样式 */
+.rcp-points-range-group {
+    background: #f6f7f7;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 3px solid #2271b1;
+}
+
+.rcp-points-range-group label {
+    color: #2271b1;
+}
+
+/* 表单描述文字 */
+.rcp-form-group .description {
+    font-size: 13px;
+    color: #646970;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* 现代化卡片样式 */
+.rcp-admin-wrap {
+    background: #f0f0f1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.rcp-codes-table-wrap {
+    background: #fff;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    overflow: hidden;
+}
+
+.rcp-codes-table-wrap table th {
+    background: #f6f7f7;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #50575e;
+}
+
+.rcp-codes-table-wrap table tbody tr:hover {
+    background: #f6f7f7;
+}
+
+/* 渐变按钮样式 */
+.page-title-action {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page-title-action:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* 弹层现代化 */
+.rcp-modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.rcp-modal-content h2 {
+    color: #1d2327;
+    font-weight: 600;
+    border-bottom: 2px solid #f0f0f1;
+    padding-bottom: 15px;
+}
+
+/* 输入框现代化 */
+.rcp-form-group input[type="text"],
+.rcp-form-group input[type="number"],
+.rcp-form-group input[type="datetime-local"],
+.rcp-form-group select {
+    transition: all 0.3s ease;
+    border: 2px solid #dcdcde;
+}
+
+.rcp-form-group input:focus,
+.rcp-form-group select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 自定义按钮基础样式 */
+.rcp-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.rcp-btn:hover {
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.rcp-btn:active {
+    transform: translateY(0);
+}
+
+/* 查看按钮 - 主题蓝色 */
+.rcp-btn-view {
+    background: #2271b1;
+}
+
+.rcp-btn-view:hover {
+    background: #135e96;
+    box-shadow: 0 2px 6px rgba(34, 113, 177, 0.3);
+}
+
+/* 编辑按钮 - 深灰色 */
+.rcp-btn-edit {
+    background: #1177de;
+}
+
+.rcp-btn-edit:hover {
+    background: #0e5fb1;
+    box-shadow: 0 2px 6px rgba(80, 87, 94, 0.3);
+}
+
+/* 删除按钮 - 警告红色 */
+.rcp-btn-delete {
+    background: #d63638;
+}
+
+.rcp-btn-delete:hover {
+    background: #b32d2e;
+    box-shadow: 0 2px 6px rgba(214, 54, 56, 0.3);
+}
+
+/* 弹层表单按钮优化 */
+.rcp-form-actions .button-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.rcp-form-actions .button-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.rcp-form-actions .button-primary:active {
+    transform: translateY(0);
+}
+
+.rcp-form-actions .rcp-modal-cancel {
+    background: #f0f0f1;
+    border: 2px solid #dcdcde;
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #50575e;
+    transition: all 0.2s ease;
+}
+
+.rcp-form-actions .rcp-modal-cancel:hover {
+    background: #dcdcde;
+    border-color: #c3c4c7;
+    color: #2c3338;
+    transform: translateY(-2px);
+}
+
+/* 添加新兑换码按钮优化 */
+.rcp-add-code-btn,
+.page-title-action.rcp-add-code-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    text-shadow: none;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.rcp-add-code-btn:hover,
+.page-title-action.rcp-add-code-btn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 782px) {
+    .rcp-modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+    
+    .rcp-form-actions {
+        text-align: center;
+    }
+    
+    .rcp-form-actions .button {
+        margin: 5px;
+        width: 100%;
+        max-width: 200px;
+    }
+}

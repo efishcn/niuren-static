@@ -1,0 +1,818 @@
+/**
+ * Modern Invite System - Admin CSS
+ * Clean, professional design system
+ */
+
+/* ===== Design Tokens ===== */
+:root {
+    --mis-primary: #2563eb;
+    --mis-primary-hover: #1d4ed8;
+    --mis-success: #10b981;
+    --mis-warning: #f59e0b;
+    --mis-danger: #ef4444;
+    --mis-text: #1e293b;
+    --mis-text-secondary: #64748b;
+    --mis-text-muted: #94a3b8;
+    --mis-border: #e2e8f0;
+    --mis-bg: #f8fafc;
+    --mis-card: #ffffff;
+    --mis-radius: 8px;
+    --mis-radius-lg: 12px;
+}
+
+/* ===== Main Container ===== */
+.mis-admin-container {
+    background: var(--mis-bg);
+    min-height: 100vh;
+    padding: 24px;
+    color: var(--mis-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.mis-admin-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== Header ===== */
+.mis-header {
+    margin-bottom: 32px;
+}
+
+.mis-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--mis-text);
+    margin: 0 0 6px;
+    letter-spacing: -0.3px;
+}
+
+.mis-subtitle {
+    font-size: 14px;
+    color: var(--mis-text-secondary);
+    margin: 0;
+}
+
+/* ===== Stats Grid ===== */
+.mis-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.mis-stat-card {
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    padding: 20px 24px;
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+
+.mis-stat-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.mis-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--mis-text);
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.mis-stat-label {
+    font-size: 13px;
+    color: var(--mis-text-secondary);
+    font-weight: 500;
+}
+
+/* ===== Buttons ===== */
+.mis-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 1px solid var(--mis-border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--mis-card);
+    color: var(--mis-text);
+    text-decoration: none;
+    line-height: 1.4;
+    min-width: 100px;
+}
+
+.mis-btn:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.mis-btn-primary,
+.mis-copy-btn {
+    background: var(--mis-primary);
+    color: #fff;
+    border-color: var(--mis-primary);
+}
+
+.mis-btn-primary:hover,
+.mis-copy-btn:hover {
+    background: var(--mis-primary-hover);
+    border-color: var(--mis-primary-hover);
+    color: #fff;
+}
+
+.mis-qr-btn {
+    background: var(--mis-text);
+    color: #fff;
+    border-color: var(--mis-text);
+}
+
+.mis-qr-btn:hover {
+    background: #334155;
+    border-color: #334155;
+    color: #fff;
+}
+
+.mis-download-btn {
+    background: var(--mis-success);
+    color: #fff;
+    border-color: var(--mis-success);
+}
+
+.mis-download-btn:hover {
+    background: #059669;
+    border-color: #059669;
+    color: #fff;
+}
+
+.mis-btn-small {
+    padding: 5px 12px;
+    font-size: 12px;
+    border: 1px solid var(--mis-border);
+    border-radius: 4px;
+    background: var(--mis-card);
+    color: var(--mis-text);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+}
+
+.mis-btn-small:hover {
+    border-color: var(--mis-primary);
+    color: var(--mis-primary);
+}
+
+/* ===== Form Elements ===== */
+.mis-form-group {
+    margin-bottom: 20px;
+}
+
+.mis-form-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mis-text);
+}
+
+.mis-form-input,
+.mis-input-group input,
+.mis-input-group textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--mis-border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--mis-text);
+    background: var(--mis-card);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.mis-form-input:focus,
+.mis-input-group input:focus,
+.mis-input-group textarea:focus {
+    outline: none;
+    border-color: var(--mis-primary);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.mis-form-input::placeholder,
+.mis-input-group input::placeholder,
+.mis-input-group textarea::placeholder {
+    color: var(--mis-text-muted);
+}
+
+.mis-form-desc {
+    font-size: 12px;
+    color: var(--mis-text-muted);
+    margin-top: 4px;
+}
+
+select.mis-form-input {
+    width: auto;
+    min-width: 140px;
+}
+
+/* ===== Input Groups ===== */
+.mis-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.mis-input-group input,
+.mis-input-group textarea {
+    flex: 1;
+}
+
+.mis-input-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* ===== Table ===== */
+.mis-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.mis-table th,
+.mis-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--mis-border);
+}
+
+.mis-table th {
+    background: var(--mis-bg);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--mis-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.mis-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.mis-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ===== Status Tags ===== */
+.mis-status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-completed,
+.mis-status.status-completed {
+    background: #ecfdf5;
+    color: #065f46;
+}
+
+.status-pending,
+.mis-status.status-pending {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.status-expired,
+.mis-status.status-expired {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* ===== Pagination ===== */
+.mis-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 24px;
+}
+
+.mis-pagination a,
+.mis-pagination span {
+    padding: 8px 14px;
+    border: 1px solid var(--mis-border);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--mis-text);
+    text-decoration: none;
+    background: var(--mis-card);
+    transition: all 0.15s;
+}
+
+.mis-pagination a:hover {
+    border-color: var(--mis-primary);
+    color: var(--mis-primary);
+}
+
+.mis-pagination .current {
+    background: var(--mis-primary);
+    border-color: var(--mis-primary);
+    color: #fff;
+}
+
+/* ===== Card Sections ===== */
+.mis-info-section {
+    margin-bottom: 24px;
+}
+
+.mis-info-card {
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    padding: 24px;
+}
+
+.mis-info-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--mis-text);
+    margin: 0 0 12px;
+}
+
+.mis-info-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mis-info-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--mis-bg);
+    font-size: 14px;
+    color: var(--mis-text-secondary);
+}
+
+.mis-info-card li:last-child {
+    border-bottom: none;
+}
+
+.mis-info-card li strong {
+    color: var(--mis-text);
+}
+
+/* ===== Link Section ===== */
+.mis-link-section {
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+
+.mis-link-section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--mis-text);
+    margin: 0 0 12px;
+}
+
+/* ===== Filter Section ===== */
+.mis-filter-section {
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+}
+
+.mis-filter-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ===== Modal ===== */
+.mis-modal {
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(15,23,42,0.5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.mis-modal-content {
+    background: var(--mis-card);
+    border-radius: var(--mis-radius-lg);
+    margin: 5% auto;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    position: relative;
+    text-align: center;
+    padding: 24px;
+}
+
+.mis-modal-header {
+    padding: 16px 20px;
+    background: var(--mis-bg);
+    border-bottom: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg) var(--mis-radius-lg) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mis-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--mis-text);
+}
+
+.mis-modal-close {
+    color: var(--mis-text-muted);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+
+.mis-modal-close:hover {
+    background: #e2e8f0;
+    color: var(--mis-text);
+}
+
+.mis-modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.mis-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 20px;
+    color: var(--mis-text-muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+
+.mis-close:hover {
+    background: var(--mis-bg);
+    color: var(--mis-text);
+}
+
+/* ===== User Picker ===== */
+.mis-user-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mis-user-search-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.mis-user-search-box input {
+    flex: 1;
+}
+
+.mis-select-user-btn {
+    padding: 4px 14px !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+}
+
+.mis-user-pagination {
+    margin-top: 14px;
+    text-align: center;
+}
+
+.mis-page-nav {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.mis-page-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid var(--mis-border);
+    border-radius: 5px;
+    background: var(--mis-card);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--mis-text);
+    font-size: 13px;
+    transition: all 0.15s;
+}
+
+.mis-page-btn:hover {
+    background: var(--mis-bg);
+    border-color: var(--mis-primary);
+    color: var(--mis-primary);
+}
+
+.mis-current-page {
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--mis-primary);
+    color: #fff;
+    border: 1px solid var(--mis-primary);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ===== Quick Actions ===== */
+.mis-quick-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 24px 0;
+    flex-wrap: wrap;
+}
+
+.mis-quick-actions .mis-btn {
+    text-decoration: none;
+}
+
+/* ===== Tab Navigation ===== */
+.mis-tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--mis-border);
+    overflow-x: auto;
+}
+
+.mis-tab-item {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mis-text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+}
+
+.mis-tab-item:hover {
+    color: var(--mis-text);
+}
+
+.mis-tab-item.active {
+    color: var(--mis-primary);
+    border-bottom-color: var(--mis-primary);
+}
+
+.mis-tab-content {
+    background: var(--mis-card);
+    border: 1px solid var(--mis-border);
+    border-radius: var(--mis-radius-lg);
+    padding: 24px;
+}
+
+/* ===== Section Title ===== */
+.mis-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--mis-text);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--mis-border);
+}
+
+/* ===== Toggle Switch ===== */
+.mis-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--mis-text-secondary);
+}
+
+/* ===== Notice/Toast ===== */
+.mis-notice {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    animation: misSlideDown 0.3s ease-out;
+    max-width: 90vw;
+}
+
+.mis-notice-error { background: var(--mis-danger); }
+.mis-notice-success { background: var(--mis-success); }
+.mis-notice-info { background: var(--mis-primary); }
+
+@keyframes misSlideDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ===== Empty State ===== */
+.mis-no-records {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--mis-text-muted);
+    font-size: 15px;
+}
+
+/* ===== Loading ===== */
+.mis-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: var(--mis-text-muted);
+    gap: 8px;
+}
+
+.mis-loading::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--mis-border);
+    border-top-color: var(--mis-primary);
+    border-radius: 50%;
+    animation: misSpin 0.6s linear infinite;
+}
+
+@keyframes misSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Tooltip ===== */
+.mis-tooltip {
+    position: absolute;
+    background: var(--mis-text);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 10001;
+    max-width: 200px;
+    display: none;
+    pointer-events: none;
+}
+
+/* ===== Animation ===== */
+@keyframes misFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.mis-fade-in {
+    animation: misFadeIn 0.3s ease-out;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .mis-admin-container {
+        padding: 16px;
+    }
+
+    .mis-title {
+        font-size: 20px;
+    }
+
+    .mis-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .mis-stat-card {
+        padding: 16px;
+    }
+
+    .mis-stat-value {
+        font-size: 22px;
+    }
+
+    .mis-stat-label {
+        font-size: 12px;
+    }
+
+    .mis-input-group {
+        flex-direction: column;
+    }
+
+    .mis-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .mis-filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mis-filter-form .mis-form-input,
+    .mis-filter-form select {
+        width: 100% !important;
+    }
+
+    .mis-table {
+        font-size: 13px;
+    }
+
+    .mis-table th,
+    .mis-table td {
+        padding: 10px 12px;
+    }
+
+    .mis-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mis-modal-content {
+        width: 95%;
+        margin: 24px auto;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mis-admin-container {
+        padding: 12px;
+    }
+
+    .mis-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .mis-title {
+        font-size: 18px;
+    }
+
+    .mis-quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mis-quick-actions .mis-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+
+    .mis-tab-item {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .mis-tab-content {
+        padding: 16px;
+    }
+}
