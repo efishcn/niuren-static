@@ -1,0 +1,313 @@
+:root {
+    /* 明亮主题变量 */
+    --primary-color: #1890ff;
+    --bg-color: #f0f2f5;
+    --text-color: #262626;
+    --border-color: #d9d9d9;
+    --menu-bg: #fff;
+    --card-bg: #fff;
+    --hover-bg: #f6f6f6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* 暗色主题变量 */
+body.dark-theme {
+    --bg-color: #1f1f1f;
+    --text-color: #fff;
+    --border-color: #434343;
+    --menu-bg: #141414;
+    --card-bg: #262626;
+    --hover-bg: #1f1f1f;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 全局样式 */
+#wpcontent {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-left: 0;
+}
+
+/* 侧边栏样式优化 */
+#adminmenuwrap {
+    background: var(--menu-bg);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    width: 240px;
+    position: fixed;
+}
+
+#adminmenu {
+    background: var(--menu-bg);
+    margin-top: 60px; /* 为顶部栏留出空间 */
+}
+
+#adminmenu div.wp-menu-image {
+    float: left;
+    width: 36px;
+    height: 34px;
+    margin: 0;
+    text-align: center;
+    color: var(--text-color);
+}
+
+#adminmenu div.wp-menu-name {
+    color: var(--text-color);
+}
+
+/* 菜单项样式 */
+#adminmenu li.menu-top {
+    border: none;
+    min-height: 34px;
+    position: relative;
+    margin: 0;
+    padding: 2px 0;
+}
+
+#adminmenu li.menu-top > a {
+    padding: 8px 12px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+/* 子菜单样式 */
+#adminmenu .wp-submenu {
+    background: var(--menu-bg);
+    border-radius: 0 4px 4px 0;
+    box-shadow: var(--shadow);
+    padding: 8px 0;
+}
+
+#adminmenu .wp-submenu a {
+    padding: 8px 24px;
+    color: var(--text-color);
+    opacity: 0.85;
+    transition: var(--transition);
+}
+
+#adminmenu .wp-submenu a:hover {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+/* 当前活动菜单项 */
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+    background: var(--primary-color);
+    color: white;
+}
+
+#adminmenu li.current a.menu-top:hover,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu:hover {
+    background: var(--primary-color);
+    opacity: 0.9;
+}
+
+/* 折叠状态样式 */
+.folded #adminmenu .wp-submenu {
+    left: 60px;
+}
+
+.folded #adminmenuwrap {
+    width: 60px;
+}
+
+.folded #wpcontent {
+    margin-left: 60px;
+}
+
+/* 内容区域适配 */
+#wpcontent {
+    margin-left: 240px;
+    padding-left: 20px;
+    background: var(--bg-color);
+}
+
+/* 折叠按钮样式 */
+.sidebar-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 200px;
+    z-index: 9999;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.sidebar-toggle:hover {
+    background: var(--hover-bg);
+    transform: scale(1.1);
+}
+
+.folded .sidebar-toggle {
+    left: 20px;
+}
+
+.sidebar-toggle .dashicons {
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.folded .sidebar-toggle .dashicons {
+    transform: rotate(180deg);
+}
+
+/* 顶部栏调整 */
+#wpadminbar {
+    background: var(--menu-bg);
+    box-shadow: var(--shadow);
+    height: 60px;
+    position: fixed;
+    padding: 0 20px;
+}
+
+#wpadminbar .ab-item {
+    height: 60px;
+    line-height: 60px;
+    color: var(--text-color) !important;
+}
+
+/* 修复WordPress默认样式冲突 */
+.wp-has-current-submenu .wp-submenu .wp-submenu-head {
+    background: transparent;
+}
+
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head {
+    color: var(--text-color);
+    padding: 8px 24px;
+}
+
+/* 搜索栏样式 */
+.top-search-bar {
+    position: relative;
+    margin: 12px 20px;
+    float: right;
+}
+
+.top-search-bar input {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px 32px 8px 12px;
+    width: 200px;
+    color: var(--text-color);
+}
+
+.top-search-bar .dashicons {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color);
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+    float: right;
+    margin: 12px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    background: var(--bg-color);
+}
+
+.theme-toggle .dashicons {
+    color: var(--text-color);
+}
+
+/* 卡片样式 */
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+/* 表格样式 */
+.wp-list-table {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.wp-list-table th {
+    background: var(--menu-bg) !important;
+    color: var(--text-color);
+}
+
+.wp-list-table td {
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 按钮样式 */
+.button {
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: var(--transition);
+}
+
+.button-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.button-primary:hover {
+    background: #40a9ff;
+    border-color: #40a9ff;
+}
+
+/* 表单样式 */
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    padding: 8px 12px;
+    transition: var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 782px) {
+    #adminmenuwrap {
+        width: 190px;
+    }
+    
+    #adminmenuwrap.collapsed {
+        width: 0;
+    }
+    
+    .top-search-bar {
+        display: none;
+    }
+} 
