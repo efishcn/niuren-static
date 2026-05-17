@@ -184,108 +184,287 @@ jQuery(document).ready(function($) {
         showPlatformModal();
     });
 
-    // 平台选择弹窗函数
-    function showPlatformModal() {
-        // 先移除已存在的弹窗
-        $('#platform-modal').remove();
+    // ==================== 通用懒加载 AJAX 工具 ====================
+    var lazyCache = {};
 
-        // 创建弹窗HTML（带loading）
-        var modalHtml = '<div id="platform-modal" class="platform-modal-overlay">' +
-            '<div class="modal-content">' +
-            '<div class="modal-header">' +
-            '<h2>选择目标平台</h2>' +
-            '<span class="modal-close">&times;</span>' +
-            '</div>' +
-            '<div class="platform-options platform-list"><p class="loading-text">加载中...</p></div>' +
-            '</div></div>';
+    function fetchLazyData(resource, params) {
+        var cacheKey = resource + '_' + JSON.stringify(params || {});
+        if (lazyCache[cacheKey]) {
+            return $.Deferred().resolve(lazyCache[cacheKey]).promise();
+        }
 
-        // Append to body
-        $('body').append(modalHtml);
+        var actionMap = {
+            'platform': 'video_gen_get_platforms',
+            'model': 'video_gen_get_models',
+            'voice': 'video_gen_get_voices',
+            'video_cover_style': 'video_gen_get_video_styles',
+            'bgm': 'video_gen_get_bgm_list'
+        };
 
-        // Lazy-load platforms if available
-        if (typeof window.VideoGenLazy !== 'undefined' && window.VideoGenLazy.fetchResourceList) {
-            window.VideoGenLazy.fetchResourceList('platform').then(function(items) {
-                var html = '';
-                $.each(items, function(i, p) {
-                    html += '<div class="platform-option" data-platform="' + p.platform_code + '">' +
-                        '<span class="platform-name-text">' + p.platform_name + '</span>';
-                    if (p.platform_desc && p.platform_desc.trim() !== '') {
-                        html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + p.platform_desc + '"></i>';
-                    }
-                    html += '</div>';
-                });
-                $('.platform-list').html(html);
-            });
-        } else {
-            // Fallback to old inline data or defaults
-            var platformOptions = [];
-            if (typeof videoPlatformOptions !== 'undefined' && videoPlatformOptions && videoPlatformOptions.length > 0) {
-                videoPlatformOptions.forEach(function(option) {
-                    platformOptions.push({ code: option.platform_code, name: option.platform_name, desc: option.platform_desc || '' });
-                });
-            } else {
-                platformOptions = [
-                    { code: 'douyin', name: '抖音' },
-                    { code: 'kuaishou', name: '快手' },
-                    { code: 'xiaohongshu', name: '小红书' },
-                    { code: 'bilibili', name: '哔哩哔哩' }
-                ];
+        var action = actionMap[resource];
+        var data = { action: action, nonce: videoGenAjax.nonce };
+        if (params) $.extend(data, params);
+
+        return $.post(videoGenAjax.ajaxurl, data).then(function(response) {
+            if (response.success) {
+                lazyCache[cacheKey] = response.data;
+                return response.data;
             }
+            return [];
+        });
+    }
+
+    // ==================== 通用弹层创建 ====================
+    function buildModalHtml(title, listClass, extraClass) {
+        extraClass = extraClass || '';
+        return '<div class="selector-modal-overlay ' + extraClass + '" style="display:none;">' +
+            '<div class="selector-modal-content">' +
+            '<div class="selector-modal-header">' +
+            '<h2>' + title + '</h2>' +
+            '<span class="selector-modal-close">&times;</span>' +
+            '</div>' +
+            '<div class="' + listClass + ' selector-list"><p class="loading-text">加载中...</p></div>' +
+            '</div></div>';
+    }
+
+    function bindModalEvents($modal, closeFn) {
+        $modal.find('.selector-modal-close').on('click', function(e) {
+            e.preventDefault(); e.stopPropagation(); closeFn();
+        });
+        $modal.on('click', function(e) {
+            if ($(e.target).is('.selector-modal-overlay')) closeFn();
+        });
+        $(document).on('keydown.selector-modal', function(e) {
+            if (e.keyCode === 27) { closeFn(); }
+        });
+    }
+
+    function closeSelectorModal($modal) {
+        $modal.fadeOut(300, function() {
+            $(this).remove();
+            $(document).off('keydown.selector-modal');
+        });
+    }
+
+    // ==================== 平台选择弹层 ====================
+    function showPlatformModal() {
+        $('.selector-modal-overlay').remove();
+        var $modal = $(buildModalHtml('选择目标平台', 'platform-list', 'platform-modal'));
+        $('body').append($modal);
+        $modal.fadeIn(300);
+
+        fetchLazyData('platform').then(function(items) {
             var html = '';
-            platformOptions.forEach(function(option) {
-                html += '<div class="platform-option" data-platform="' + option.code + '">' +
-                    '<span class="platform-name-text">' + option.name + '</span>';
-                if (option.desc && option.desc.trim() !== '') {
-                    html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + option.desc + '"></i>';
+            $.each(items, function(i, p) {
+                html += '<div class="platform-option" data-platform="' + p.platform_code + '">' +
+                    '<span class="platform-name-text">' + p.platform_name + '</span>';
+                if (p.platform_desc && p.platform_desc.trim() !== '') {
+                    html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + p.platform_desc + '"></i>';
                 }
                 html += '</div>';
             });
-            $('.platform-list').html(html);
-        }
+            $modal.find('.platform-list').html(html);
 
-        // 显示弹窗
-        $('#platform-modal').fadeIn(300);
-
-        // 绑定关闭按钮事件
-        $('.modal-close').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closePlatformModal();
+            $modal.find('.platform-option').on('click', function(e) {
+                e.preventDefault(); e.stopPropagation();
+                var code = $(this).data('platform');
+                var name = $(this).find('.platform-name-text').text();
+                $('.platform-name').text(name);
+                $('#platform').val(code);
+                closeSelectorModal($modal);
+            });
         });
 
-        // 绑定平台选择事件
-        $('.platform-option').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var selectedPlatform = $(this).data('platform');
-            var selectedPlatformName = $(this).find('.platform-name-text').text();
-            $('.platform-name').text(selectedPlatformName);
-            $('#platform').val(selectedPlatform);
-            closePlatformModal();
-        });
-
-        // 点击空白处关闭弹窗
-        $('#platform-modal').on('click', function(e) {
-            if ($(e.target).is('#platform-modal')) {
-                closePlatformModal();
-            }
-        });
-
-        // ESC键关闭弹窗
-        $(document).on('keydown.platform-modal', function(e) {
-            if (e.keyCode === 27) {
-                closePlatformModal();
-            }
-        });
+        bindModalEvents($modal, function() { closeSelectorModal($modal); });
     }
 
-    // 关闭平台选择弹窗
-    function closePlatformModal() {
-        $('#platform-modal').fadeOut(300, function() {
-            $(this).remove();
-            $(document).off('keydown.platform-modal');
+    // ==================== 模型选择弹层 ====================
+    function showModelModal() {
+        $('.selector-modal-overlay').remove();
+        var $modal = $(buildModalHtml('选择生成模型', 'model-list', 'model-modal'));
+        $('body').append($modal);
+        $modal.fadeIn(300);
+
+        fetchLazyData('model').then(function(items) {
+            var html = '';
+            $.each(items, function(i, m) {
+                html += '<div class="selector-option model-option" data-value="' + m.identifier + '" data-name="' + m.model_name + '">' +
+                    '<span class="option-name">' + m.model_name + '</span>' +
+                    '<span class="option-extra">消耗' + m.credit + '积分</span></div>';
+            });
+            $modal.find('.model-list').html(html);
+
+            $modal.find('.model-option').on('click', function(e) {
+                e.preventDefault(); e.stopPropagation();
+                var val = $(this).data('value');
+                var name = $(this).data('name');
+                var credit = $(this).find('.option-extra').text();
+                $('#model-selector-trigger .selector-value').text(name + ' (' + credit + ')');
+                $('#model-selector-trigger').data('value', val);
+                $('input[name="model"]').val(val);
+                $('.selector-option').removeClass('selected');
+                $(this).addClass('selected');
+                closeSelectorModal($modal);
+            });
+
+            // 高亮当前选中项
+            var curVal = $('input[name="model"]').val();
+            $modal.find('.model-option[data-value="' + curVal + '"]').addClass('selected');
         });
+
+        bindModalEvents($modal, function() { closeSelectorModal($modal); });
     }
+
+    // ==================== 视频封面风格弹层 ====================
+    function showStyleModal() {
+        $('.selector-modal-overlay').remove();
+        var $modal = $(buildModalHtml('选择视频封面风格', 'style-list', 'style-modal'));
+        $('body').append($modal);
+        $modal.fadeIn(300);
+
+        fetchLazyData('video_cover_style').then(function(items) {
+            var html = '';
+            $.each(items, function(i, s) {
+                html += '<div class="selector-option style-option" data-value="' + s.style_code + '" data-name="' + s.style_name + '">' +
+                    '<span class="option-name">' + s.style_name + '</span>';
+                if (s.preview_url) {
+                    html += '<img src="' + s.preview_url + '" class="option-preview" onerror="this.style.display=\'none\'">';
+                }
+                html += '</div>';
+            });
+            $modal.find('.style-list').html(html);
+
+            $modal.find('.style-option').on('click', function(e) {
+                e.preventDefault(); e.stopPropagation();
+                var val = $(this).data('value');
+                var name = $(this).data('name');
+                $('#style-selector-trigger .selector-value').text(name);
+                $('#style-selector-trigger').data('value', val);
+                $('input[name="video_style"]').val(val);
+                $('.selector-option').removeClass('selected');
+                $(this).addClass('selected');
+                // 更新预览图
+                if (videoGenAjax.stylePreviewBase) {
+                    var previewSrc = videoGenAjax.stylePreviewBase + val + '.jpg';
+                    $('#video_style_preview').attr('src', previewSrc).show();
+                }
+                closeSelectorModal($modal);
+            });
+
+            var curVal = $('input[name="video_style"]').val();
+            $modal.find('.style-option[data-value="' + curVal + '"]').addClass('selected');
+        });
+
+        bindModalEvents($modal, function() { closeSelectorModal($modal); });
+    }
+
+    // ==================== 声音选择弹层 ====================
+    function showVoiceModal(voiceType) {
+        $('.selector-modal-overlay').remove();
+        var title = voiceType === 'edge' ? '选择标准声音' : '选择自定义声音';
+        var $modal = $(buildModalHtml(title, 'voice-list', 'voice-modal'));
+        $('body').append($modal);
+        $modal.fadeIn(300);
+
+        var inputName = voiceType === 'edge' ? 'voice_name' : 'voice_model';
+        var triggerId = voiceType === 'edge' ? '#voice-name-trigger' : '#voice-model-trigger';
+        var curVal = $('select[name="' + inputName + '"]').val();
+
+        fetchLazyData('voice', { voice_type: voiceType }).then(function(items) {
+            // 如果是 fishaudio，追加用户训练声音
+            if (voiceType === 'fishaudio') {
+                $('select[name="voice_model"] option').each(function() {
+                    var val = $(this).val();
+                    var txt = $(this).text();
+                    // 检查是否已在 AJAX 数据中
+                    var found = false;
+                    $.each(items, function(i, v) {
+                        if (v.voice_id === val) { found = true; return false; }
+                    });
+                    if (!found && val) {
+                        items.push({ voice_id: val, title: txt, voice_type: 'user', preview_url: '' });
+                    }
+                });
+            }
+
+            var html = '';
+            $.each(items, function(i, v) {
+                html += '<div class="selector-option voice-option" data-value="' + v.voice_id + '" data-name="' + v.title + '">' +
+                    '<span class="option-name">' + v.title + '</span>';
+                if (v.voice_type === 'user') {
+                    html += '<span class="option-badge">我的</span>';
+                }
+                if (v.preview_url) {
+                    html += '<button type="button" class="preview-voice-btn" data-url="' + v.preview_url + '">' +
+                        '<span class="dashicons dashicons-controls-play"></span>试听</button>';
+                }
+                html += '</div>';
+            });
+            $modal.find('.voice-list').html(html);
+
+            $modal.find('.voice-option').on('click', function(e) {
+                if ($(e.target).is('.preview-voice-btn')) return;
+                e.preventDefault(); e.stopPropagation();
+                var val = $(this).data('value');
+                var name = $(this).data('name');
+                $(triggerId + ' .selector-value').text(name);
+                $(triggerId).data('value', val);
+                $('select[name="' + inputName + '"]').val(val);
+                $('.selector-option').removeClass('selected');
+                $(this).addClass('selected');
+                closeSelectorModal($modal);
+            });
+
+            $modal.find('.preview-voice-btn').on('click', function(e) {
+                e.preventDefault(); e.stopPropagation();
+                var url = $(this).data('url');
+                var audio = new Audio(url);
+                audio.play();
+            });
+
+            $modal.find('.voice-option[data-value="' + curVal + '"]').addClass('selected');
+        });
+
+        bindModalEvents($modal, function() { closeSelectorModal($modal); });
+    }
+
+    // ==================== 背景音乐下拉懒加载（去重修复） ====================
+    $(document).on('click focus', 'select[data-lazy-resource="bgm"]', function() {
+        var $select = $(this);
+        if ($select.data('lazy-loaded')) return;
+
+        fetchLazyData('bgm').then(function(items) {
+            var currentVal = $select.data('current-value') || $select.val();
+            $select.empty();
+            $.each(items, function(i, m) {
+                var $option = $('<option>').val(m.file_name).text(m.title);
+                if (m.file_name == currentVal) $option.prop('selected', true);
+                $select.append($option);
+            });
+            $select.data('lazy-loaded', true).trigger('change');
+        });
+    });
+
+    // 绑定触发器点击事件
+    $('#model-selector-trigger').on('click', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        showModelModal();
+    });
+
+    $('#style-selector-trigger').on('click', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        showStyleModal();
+    });
+
+    $('#voice-name-trigger').on('click', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        showVoiceModal('edge');
+    });
+
+    $('#voice-model-trigger').on('click', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        showVoiceModal('fishaudio');
+    });
 
     // 内容字段动态加载函数
     function loadContentFields(sourceType) {
@@ -369,16 +548,13 @@ jQuery(document).ready(function($) {
     // 声音设置切换功能
     function toggleVoiceSettings() {
         var voiceCreateType = $('#voice_create_type').val();
-        
         if (voiceCreateType === 'edge') {
-            // 显示标准声音，隐藏自定义声音和声音标准
-            $('#voice_name').closest('label').show();
-            $('#voice_model').closest('label').hide();
+            $('#voice-name-trigger').show();
+            $('#voice-model-trigger').hide();
             $('#voice_type').closest('label').hide();
-        } else if (voiceCreateType === 'fishaudio') {
-            // 隐藏标准声音，显示自定义声音和声音标准
-            $('#voice_name').closest('label').hide();
-            $('#voice_model').closest('label').show();
+        } else {
+            $('#voice-name-trigger').hide();
+            $('#voice-model-trigger').show();
             $('#voice_type').closest('label').show();
         }
     }
