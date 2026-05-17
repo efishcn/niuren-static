@@ -188,55 +188,62 @@ jQuery(document).ready(function($) {
     function showPlatformModal() {
         // 先移除已存在的弹窗
         $('#platform-modal').remove();
-        
-        // 从全局变量获取平台数据
-        var platformOptions = [];
-        
-        // 使用从PHP传递的平台数据
-        if (typeof videoPlatformOptions !== 'undefined' && videoPlatformOptions.length > 0) {
-            videoPlatformOptions.forEach(function(option) {
-                platformOptions.push({
-                    code: option.platform_code,
-                    name: option.platform_name,
-                    desc: option.platform_desc || ''
-                });
-            });
-        } else {
-            // 默认平台选项
-            platformOptions = [
-                { code: 'douyin', name: '抖音' },
-                { code: 'kuaishou', name: '快手' },
-                { code: 'xiaohongshu', name: '小红书' },
-                { code: 'bilibili', name: '哔哩哔哩' }
-            ];
-        }
 
-        // 创建弹窗HTML
+        // 创建弹窗HTML（带loading）
         var modalHtml = '<div id="platform-modal" class="platform-modal-overlay">' +
             '<div class="modal-content">' +
             '<div class="modal-header">' +
             '<h2>选择目标平台</h2>' +
             '<span class="modal-close">&times;</span>' +
             '</div>' +
-            '<div class="platform-options">';
-        
-        // 生成平台选项
-        platformOptions.forEach(function(option) {
-            modalHtml += '<div class="platform-option" data-platform="' + option.code + '">' +
-                '<span class="platform-name-text">' + option.name + '</span>';
-            
-            // 添加提示图标（如果有描述）
-            if (option.desc && option.desc.trim() !== '') {
-                modalHtml += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + option.desc + '"></i>';
-            }
-            
-            modalHtml += '</div>';
-        });
-        
-        modalHtml += '</div></div></div>';
+            '<div class="platform-options platform-list"><p class="loading-text">加载中...</p></div>' +
+            '</div></div>';
 
-        // 添加到页面并显示
+        // Append to body
         $('body').append(modalHtml);
+
+        // Lazy-load platforms if available
+        if (typeof window.VideoGenLazy !== 'undefined' && window.VideoGenLazy.fetchResourceList) {
+            window.VideoGenLazy.fetchResourceList('platform').then(function(items) {
+                var html = '';
+                $.each(items, function(i, p) {
+                    html += '<div class="platform-option" data-platform="' + p.platform_code + '">' +
+                        '<span class="platform-name-text">' + p.platform_name + '</span>';
+                    if (p.platform_desc && p.platform_desc.trim() !== '') {
+                        html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + p.platform_desc + '"></i>';
+                    }
+                    html += '</div>';
+                });
+                $('.platform-list').html(html);
+            });
+        } else {
+            // Fallback to old inline data or defaults
+            var platformOptions = [];
+            if (typeof videoPlatformOptions !== 'undefined' && videoPlatformOptions && videoPlatformOptions.length > 0) {
+                videoPlatformOptions.forEach(function(option) {
+                    platformOptions.push({ code: option.platform_code, name: option.platform_name, desc: option.platform_desc || '' });
+                });
+            } else {
+                platformOptions = [
+                    { code: 'douyin', name: '抖音' },
+                    { code: 'kuaishou', name: '快手' },
+                    { code: 'xiaohongshu', name: '小红书' },
+                    { code: 'bilibili', name: '哔哩哔哩' }
+                ];
+            }
+            var html = '';
+            platformOptions.forEach(function(option) {
+                html += '<div class="platform-option" data-platform="' + option.code + '">' +
+                    '<span class="platform-name-text">' + option.name + '</span>';
+                if (option.desc && option.desc.trim() !== '') {
+                    html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + option.desc + '"></i>';
+                }
+                html += '</div>';
+            });
+            $('.platform-list').html(html);
+        }
+
+        // 显示弹窗
         $('#platform-modal').fadeIn(300);
 
         // 绑定关闭按钮事件
