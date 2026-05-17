@@ -312,8 +312,7 @@ jQuery(document).ready(function($) {
                 var val = $(this).data('value');
                 var name = $(this).data('name');
                 var credit = $(this).find('.option-extra').text();
-                $('#model-selector-trigger .selector-value').text(name + ' (' + credit + ')');
-                $('#model-selector-trigger').data('value', val);
+                $('#selected-model .platform-name').text(name + ' (' + credit + ')');
                 $('input[name="model"]').val(val);
                 $('.selector-option').removeClass('selected');
                 $(this).addClass('selected');
@@ -351,8 +350,7 @@ jQuery(document).ready(function($) {
                 e.preventDefault(); e.stopPropagation();
                 var val = $(this).data('value');
                 var name = $(this).data('name');
-                $('#style-selector-trigger .selector-value').text(name);
-                $('#style-selector-trigger').data('value', val);
+                $('#selected-style .platform-name').text(name);
                 $('input[name="video_style"]').val(val);
                 $('.selector-option').removeClass('selected');
                 $(this).addClass('selected');
@@ -380,7 +378,7 @@ jQuery(document).ready(function($) {
         $modal.fadeIn(300);
 
         var inputName = voiceType === 'edge' ? 'voice_name' : 'voice_model';
-        var triggerId = voiceType === 'edge' ? '#voice-name-trigger' : '#voice-model-trigger';
+        var displayId = voiceType === 'edge' ? '#selected-edge-voice .platform-name' : '#selected-fish-voice .platform-name';
         var curVal = $('select[name="' + inputName + '"]').val();
 
         fetchLazyData('voice', { voice_type: voiceType }).then(function(items) {
@@ -420,8 +418,7 @@ jQuery(document).ready(function($) {
                 e.preventDefault(); e.stopPropagation();
                 var val = $(this).data('value');
                 var name = $(this).data('name');
-                $(triggerId + ' .selector-value').text(name);
-                $(triggerId).data('value', val);
+                $(displayId).text(name);
                 $('select[name="' + inputName + '"]').val(val);
                 $('.selector-option').removeClass('selected');
                 $(this).addClass('selected');
@@ -458,23 +455,23 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // 绑定触发器点击事件
-    $('#model-selector-trigger').on('click', function(e) {
+    // 绑定各选择器点击事件（统一使用平台选择器风格）
+    $('#selected-model, #toggle-model-button').on('click', function(e) {
         e.preventDefault(); e.stopPropagation();
         showModelModal();
     });
 
-    $('#style-selector-trigger').on('click', function(e) {
+    $('#selected-style, #toggle-style-button').on('click', function(e) {
         e.preventDefault(); e.stopPropagation();
         showStyleModal();
     });
 
-    $('#voice-name-trigger').on('click', function(e) {
+    $('#selected-edge-voice, #toggle-edge-voice-button').on('click', function(e) {
         e.preventDefault(); e.stopPropagation();
         showVoiceModal('edge');
     });
 
-    $('#voice-model-trigger').on('click', function(e) {
+    $('#selected-fish-voice, #toggle-fish-voice-button').on('click', function(e) {
         e.preventDefault(); e.stopPropagation();
         showVoiceModal('fishaudio');
     });
@@ -562,12 +559,12 @@ jQuery(document).ready(function($) {
     function toggleVoiceSettings() {
         var voiceCreateType = $('#voice_create_type').val();
         if (voiceCreateType === 'edge') {
-            $('#voice-name-trigger').show();
-            $('#voice-model-trigger').hide();
+            $('#selected-edge-voice').closest('.platform-selector').show();
+            $('#selected-fish-voice').closest('.platform-selector').hide();
             $('#voice_type').closest('label').hide();
         } else {
-            $('#voice-name-trigger').hide();
-            $('#voice-model-trigger').show();
+            $('#selected-edge-voice').closest('.platform-selector').hide();
+            $('#selected-fish-voice').closest('.platform-selector').show();
             $('#voice_type').closest('label').show();
         }
     }
@@ -1148,130 +1145,84 @@ jQuery(document).ready(function($) {
     }
 
     // ==================== 固定底部按钮和24小时限制功能 ====================
-    
+
+    function createFixedSubmitBar() {
+        if ($('.fixed-submit-bar').length) return;
+        var barHtml = '<div class="fixed-submit-bar" id="fixed-submit-bar">' +
+            '<div class="fixed-submit-content">' +
+            '<div class="fixed-submit-tip"><span id="submit-count-tip">填写完成后点击提交</span></div>' +
+            '<input type="button" name="submit" id="fixed-submit" class="page-title-action btn-add-new" value="开始生成">' +
+            '</div></div>';
+        $('body').append(barHtml);
+    }
+
+    function createLimitModal() {
+        if ($('.limit-exceeded-modal').length) return;
+        var modalHtml = '<div class="limit-exceeded-modal" id="limit-exceeded-modal" style="display: none;">' +
+            '<div class="modal-content">' +
+            '<span class="modal-icon">🚫</span>' +
+            '<h3>任务已达上限</h3>' +
+            '<p>今日已达视频生成任务上限</p>' +
+            '<div class="limit-info">' +
+            '<div>您当日已提交：<strong id="used-count">0</strong> 条</div>' +
+            '<div class="limit-timer" id="reset-timer"></div>' +
+            '</div>' +
+            '<button type="button" id="limit-modal-close" class="button button-primary">我知道了</button>' +
+            '</div></div>';
+        $('body').append(modalHtml);
+    }
+
+    function showFixedBar() {
+        createFixedSubmitBar();
+        $('.fixed-submit-bar').addClass('show');
+        updateFixedBarPosition();
+    }
+
+    function hideFixedBar() {
+        $('.fixed-submit-bar').removeClass('show');
+    }
+
+    function updateFixedBarPosition() {
+        var footerHeight = $('#wpfooter').outerHeight() || 0;
+        $('.fixed-submit-bar').css('bottom', footerHeight + 'px');
+    }
+
+    function checkSubmitLimit() {
+        return $.ajax({
+            url: videoGenAjax.ajaxurl,
+            type: 'POST',
+            data: { action: 'video_gen_check_limit', nonce: videoGenAjax.nonce },
+            dataType: 'json'
+        });
+    }
+
+    function showLimitExceededModal(usedCount, nextResetTime) {
+        createLimitModal();
+        $('#used-count').text(usedCount);
+        if (nextResetTime) updateResetTimer(nextResetTime);
+        $('#limit-exceeded-modal').fadeIn(300);
+        $('#limit-modal-close').on('click', function() { $('#limit-exceeded-modal').fadeOut(300); });
+        $('#limit-exceeded-modal').on('click', function(e) {
+            if ($(e.target).is('#limit-exceeded-modal')) $(this).fadeOut(300);
+        });
+    }
+
+    function updateResetTimer(nextResetTime) {
+        function update() {
+            var now = new Date().getTime();
+            var distance = nextResetTime - now;
+            if (distance < 0) { $('#reset-timer').text(''); return; }
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            $('#reset-timer').text('距离重置还剩: ' + hours + '小时' + minutes + '分' + seconds + '秒');
+        }
+        update();
+        setInterval(update, 1000);
+    }
+
     // 检查是否在视频生成页面
     if ($('#video-gen-form').length) {
-        
-        // 创建固定底部提交栏
-        var createFixedSubmitBar = function() {
-            // 检查是否已存在
-            if ($('.fixed-submit-bar').length) return;
-
-            var barHtml = `
-                <div class="fixed-submit-bar" id="fixed-submit-bar">
-                    <div class="fixed-submit-content">
-                        <div class="fixed-submit-tip">
-                            <span id="submit-count-tip">填写完成后点击提交</span>
-                        </div>
-                        <input type="button" name="submit" id="fixed-submit" class="page-title-action btn-add-new" value="开始生成">
-                    </div>
-                </div>
-            `;
-            $('body').append(barHtml);
-        }
-        
-        // 创建超出限制弹窗
-        var createLimitModal = function() {
-            // 检查是否已存在
-            if ($('.limit-exceeded-modal').length) return;
-            
-            var modalHtml = `
-                <div class="limit-exceeded-modal" id="limit-exceeded-modal" style="display: none;">
-                    <div class="modal-content">
-                        <span class="modal-icon">🚫</span>
-                        <h3>任务已达上限</h3>
-                        <p>今日已达视频生成任务上限</p>
-                        <div class="limit-info">
-                            <div>您当日已提交：<strong id="used-count">0</strong> 条</div>
-                            <div class="limit-timer" id="reset-timer"></div>
-                        </div>
-                        <button type="button" id="limit-modal-close" class="button button-primary">我知道了</button>
-                    </div>
-                </div>
-            `;
-            $('body').append(modalHtml);
-        }
-        
-        // 显示固定底部栏
-        var showFixedBar = function() {
-            if (!$('.fixed-submit-bar').length) {
-                createFixedSubmitBar();
-            }
-            $('.fixed-submit-bar').addClass('show');
-            updateFixedBarPosition();
-        }
-        
-        // 隐藏固定底部栏
-        var hideFixedBar = function() {
-            $('.fixed-submit-bar').removeClass('show');
-        }
-        
-        // 更新固定栏位置（考虑wp-adminfooter）
-        var updateFixedBarPosition = function() {
-            var footerHeight = $('#wpfooter').outerHeight() || 0;
-            $('.fixed-submit-bar').css('bottom', footerHeight + 'px');
-        }
-        
-        // 检查用户提交次数限制
-        var checkSubmitLimit = function() {
-            return $.ajax({
-                url: videoGenAjax.ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'video_gen_check_limit',
-                    nonce: videoGenAjax.nonce
-                },
-                dataType: 'json'
-            });
-        }
-        
-        // 显示超出限制弹窗
-        var showLimitExceededModal = function(usedCount, nextResetTime) {
-            createLimitModal();
-            
-            $('#used-count').text(usedCount);
-            
-            // 计算距离重置的时间
-            if (nextResetTime) {
-                updateResetTimer(nextResetTime);
-            }
-            
-            $('#limit-exceeded-modal').fadeIn(300);
-            
-            // 绑定关闭按钮事件
-            $('#limit-modal-close').on('click', function() {
-                $('#limit-exceeded-modal').fadeOut(300);
-            });
-            
-            // 点击遮罩关闭
-            $('#limit-exceeded-modal').on('click', function(e) {
-                if ($(e.target).is('#limit-exceeded-modal')) {
-                    $(this).fadeOut(300);
-                }
-            });
-        }
-        
-        // 更新重置计时器
-        var updateResetTimer = function(nextResetTime) {
-            function update() {
-                var now = new Date().getTime();
-                var distance = nextResetTime - now;
-                
-                if (distance < 0) {
-                    $('#reset-timer').text('');
-                    return;
-                }
-                
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                $('#reset-timer').text('距离重置还剩: ' + hours + '小时' + minutes + '分' + seconds + '秒');
-            }
-            
-            update();
-            setInterval(update, 1000);
-        }
         
         // 页面滚动时控制固定栏显示
         var lastScrollTop = 0;
