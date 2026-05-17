@@ -964,22 +964,22 @@ jQuery(document).ready(function($) {
     if ($('#video-gen-form').length) {
         
         // 创建固定底部提交栏
-        // function createFixedSubmitBar() {
-        //     // 检查是否已存在
-        //     if ($('.fixed-submit-bar').length) return;
-        //
-        //     var barHtml = `
-        //         <div class="fixed-submit-bar" id="fixed-submit-bar">
-        //             <div class="fixed-submit-content">
-        //                 <div class="fixed-submit-tip">
-        //                     <span id="submit-count-tip">填写完成后点击提交</span>
-        //                 </div>
-        //                 <input type="button" name="submit" id="fixed-submit" class="page-title-action btn-add-new" value="开始生成">
-        //             </div>
-        //         </div>
-        //     `;
-        //     $('body').append(barHtml);
-        // }
+        function createFixedSubmitBar() {
+            // 检查是否已存在
+            if ($('.fixed-submit-bar').length) return;
+
+            var barHtml = `
+                <div class="fixed-submit-bar" id="fixed-submit-bar">
+                    <div class="fixed-submit-content">
+                        <div class="fixed-submit-tip">
+                            <span id="submit-count-tip">填写完成后点击提交</span>
+                        </div>
+                        <input type="button" name="submit" id="fixed-submit" class="page-title-action btn-add-new" value="开始生成">
+                    </div>
+                </div>
+            `;
+            $('body').append(barHtml);
+        }
         
         // 创建超出限制弹窗
         function createLimitModal() {
