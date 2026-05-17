@@ -1140,7 +1140,7 @@ jQuery(document).ready(function($) {
     if ($('#video-gen-form').length) {
         
         // 创建固定底部提交栏
-        function createFixedSubmitBar() {
+        var createFixedSubmitBar = function() {
             // 检查是否已存在
             if ($('.fixed-submit-bar').length) return;
 
@@ -1158,7 +1158,7 @@ jQuery(document).ready(function($) {
         }
         
         // 创建超出限制弹窗
-        function createLimitModal() {
+        var createLimitModal = function() {
             // 检查是否已存在
             if ($('.limit-exceeded-modal').length) return;
             
@@ -1180,7 +1180,7 @@ jQuery(document).ready(function($) {
         }
         
         // 显示固定底部栏
-        function showFixedBar() {
+        var showFixedBar = function() {
             if (!$('.fixed-submit-bar').length) {
                 createFixedSubmitBar();
             }
@@ -1189,18 +1189,18 @@ jQuery(document).ready(function($) {
         }
         
         // 隐藏固定底部栏
-        function hideFixedBar() {
+        var hideFixedBar = function() {
             $('.fixed-submit-bar').removeClass('show');
         }
         
         // 更新固定栏位置（考虑wp-adminfooter）
-        function updateFixedBarPosition() {
+        var updateFixedBarPosition = function() {
             var footerHeight = $('#wpfooter').outerHeight() || 0;
             $('.fixed-submit-bar').css('bottom', footerHeight + 'px');
         }
         
         // 检查用户提交次数限制
-        function checkSubmitLimit() {
+        var checkSubmitLimit = function() {
             return $.ajax({
                 url: videoGenAjax.ajaxurl,
                 type: 'POST',
@@ -1213,7 +1213,7 @@ jQuery(document).ready(function($) {
         }
         
         // 显示超出限制弹窗
-        function showLimitExceededModal(usedCount, nextResetTime) {
+        var showLimitExceededModal = function(usedCount, nextResetTime) {
             createLimitModal();
             
             $('#used-count').text(usedCount);
@@ -1239,7 +1239,7 @@ jQuery(document).ready(function($) {
         }
         
         // 更新重置计时器
-        function updateResetTimer(nextResetTime) {
+        var updateResetTimer = function(nextResetTime) {
             function update() {
                 var now = new Date().getTime();
                 var distance = nextResetTime - now;
