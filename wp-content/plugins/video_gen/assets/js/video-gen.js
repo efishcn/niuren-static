@@ -202,14 +202,27 @@ jQuery(document).ready(function($) {
         };
 
         var action = actionMap[resource];
+        if (!action) {
+            console.error('fetchLazyData: unknown resource', resource);
+            return $.Deferred().resolve([]).promise();
+        }
+
         var data = { action: action, nonce: videoGenAjax.nonce };
         if (params) $.extend(data, params);
 
-        return $.post(videoGenAjax.ajaxurl, data).then(function(response) {
-            if (response.success) {
+        return $.ajax({
+            url: videoGenAjax.ajaxurl,
+            type: 'POST',
+            data: data,
+            dataType: 'json'
+        }).then(function(response) {
+            if (response && response.success) {
                 lazyCache[cacheKey] = response.data;
                 return response.data;
             }
+            return [];
+        }, function(xhr, status, error) {
+            console.error('fetchLazyData fail:', resource, status, error);
             return [];
         });
     }
