@@ -831,7 +831,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.dh-remark-modal .modal-header h3 { margin: 0; font-size: 16px; color: #333; }
+.dh-remark-modal .modal-header h3 { margin: 0; font-size: 16px; color: #fff; }
 .dh-remark-modal .modal-close {
     font-size: 22px;
     cursor: pointer;

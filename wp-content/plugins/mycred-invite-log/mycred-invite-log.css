@@ -1,0 +1,79 @@
+.wrap {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.invite-info {
+    margin-bottom: 20px;
+}
+.invite-info p {
+    font-size: 16px;
+}
+.highlight {
+    color: #ff6347;
+    font-weight: bold;
+}
+.invite-link p {
+    font-weight:700;
+}
+.invite-link .input-group {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.invite-link input[type='text'],  textarea {
+    padding: 10px;
+    border: 1px solid #ccc !important;
+    border-radius: 5px 0 0 5px;
+}
+.invite-link textarea {
+    padding: 10px;
+    border: 1px solid #ccc !important;
+    border-radius: 5px 0 0 5px;
+}
+
+.invite-link .copy-button {
+    padding: 10px 15px;
+    background-color: #007cba;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.invite-link .copy-button:hover {
+    background-color: #005f8a;
+}
+.invite-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    width: 88%;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 50%;
+}
+
+.summary-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.summary-value {
+    color: #008000; /* 默认颜色，可以根据需要更改 */
+}

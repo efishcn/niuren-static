@@ -98,16 +98,20 @@
     border-radius: var(--border-radius-small);
     transition: var(--transition);
 }
+.form-table th,
+.form-table td {
+    padding: 12px 16px;
+}
 
 .form-table tr:hover {
     background: rgba(255, 255, 255, 0.9);
     /*transform: translateX(4px);*/
 }
 
-/* 输入框样式 */
-.regular-text,
-textarea,
-select {
+/* 输入框样式 - 限定在 video-gen 页面内 */
+.video-gen-container .regular-text,
+.video-gen-container textarea,
+.video-gen-container select {
     width: 100%;
     max-width: 500px;
     padding: 12px 16px;
@@ -119,9 +123,9 @@ select {
     /*backdrop-filter: blur(10px);*/
 }
 
-.regular-text:focus,
-textarea:focus,
-select:focus {
+.video-gen-container .regular-text:focus,
+.video-gen-container textarea:focus,
+.video-gen-container select:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 4px rgba(24, 144, 255, 0.1);
     outline: none;
@@ -129,9 +133,9 @@ select:focus {
     transform: translateY(-1px);
 }
 
-.regular-text:hover,
-textarea:hover,
-select:hover {
+.video-gen-container .regular-text:hover,
+.video-gen-container textarea:hover,
+.video-gen-container select:hover {
     border-color: #b3d4fc;
     background: white;
 }
@@ -880,7 +884,7 @@ input:checked + .slider:before {
 }
 
 /* 文本域样式 */
-textarea {
+.video-gen-container textarea {
     width: 100%;
     max-width: 500px;
     padding: 8px;
@@ -889,7 +893,7 @@ textarea {
     resize: vertical;
 }
 
-textarea:focus {
+.video-gen-container textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
     outline: none;
@@ -2134,7 +2138,7 @@ body.modal-open {
 
     .mode-card-label,
     .source-card-label {
-        min-height: 100px;
+        min-height: 30px;
         padding: 16px 12px;
     }
 
@@ -2173,8 +2177,12 @@ body.modal-open {
         padding: 16px;
     }
 
+    .video-settings-panel {
+        padding: 12px;
+    }
+
     .settings-group {
-        padding: 16px;
+        padding: 8px;
         margin-bottom: 16px;
     }
 
@@ -3076,105 +3084,151 @@ body.modal-open {
     box-shadow: 0 6px 20px rgba(24, 144, 255, 0.4);
 }
 
-/* ==================== Selector Trigger & Modal Styles ==================== */
-.selector-trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    background: #fff;
-    cursor: pointer;
-    min-width: 180px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-.selector-trigger:hover {
-    border-color: #1890ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.15);
-}
-.selector-trigger .selector-value {
-    flex: 1;
-    color: #333;
-    font-size: 13px;
-    line-height: 1.6;
-}
-.selector-trigger .selector-arrow {
-    color: #999;
-    font-size: 10px;
-    transition: transform 0.2s;
-}
-
+/* ==================== Selector Modal Styles ==================== */
 .selector-modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.55);
     z-index: 100000;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .selector-modal-content {
-    background: #fff;
-    border-radius: 8px;
-    max-width: 520px;
-    width: 90%;
-    max-height: 70vh;
+    background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+    border-radius: 12px;
+    max-width: 680px;
+    width: 92%;
+    max-height: 75vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.25);
     overflow: hidden;
+    position: relative;
+}
+.selector-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #1890ff 0%, #667eea 100%);
+    z-index: 1;
 }
 .selector-modal-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid #f0f0f0;
+    gap: 10px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(24,144,255,0.1);
+    background: rgba(24,144,255,0.02);
+    flex-wrap: wrap;
 }
 .selector-modal-header h2 {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
-    color: #1a1a2e;
+    color: #1f2937;
+    flex: 0 0 auto;
+}
+.modal-search-input {
+    flex: 1;
+    min-width: 150px;
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.modal-search-input:focus {
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24,144,255,0.15);
 }
 .selector-modal-close {
-    font-size: 22px;
+    font-size: 24px;
     color: #999;
     cursor: pointer;
     line-height: 1;
     padding: 0 4px;
     transition: color 0.2s;
+    flex: 0 0 auto;
 }
 .selector-modal-close:hover { color: #333; }
 
 .selector-list {
-    padding: 8px 0;
+    padding: 16px 24px;
     overflow-y: auto;
-    max-height: 50vh;
+    max-height: 55vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+.selector-list.platform-list { }
+.selector-list.model-list,
+.selector-list.style-list,
+.selector-list.voice-list {
+    grid-template-columns: 1fr;
 }
 .loading-text {
     text-align: center;
     padding: 30px;
     color: #999;
     font-size: 14px;
+    grid-column: 1 / -1;
 }
 
+/* Platform grid items */
+.platform-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #e8ecf1;
+    background: #fff;
+    text-align: center;
+    transition: all 0.2s;
+    min-height: 70px;
+}
+.platform-option:hover {
+    border-color: #1890ff;
+    background: #e6f7ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24,144,255,0.15);
+}
+.platform-option .platform-name-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+}
+.platform-option .platform-desc-text {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    line-height: 1.3;
+}
+
+/* Generic option items (model, style, voice) */
 .selector-option {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 20px;
+    padding: 12px 16px;
     cursor: pointer;
-    transition: background 0.15s;
-    border-bottom: 1px solid #fafafa;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
 }
 .selector-option:hover {
     background: #e6f7ff;
+    border-color: #91d5ff;
 }
 .selector-option.selected {
     background: #e6f7ff;
-    border-left: 3px solid #1890ff;
+    border-color: #1890ff;
 }
 .selector-option .option-name {
     flex: 1;
@@ -3201,7 +3255,6 @@ body.modal-open {
     border-radius: 3px;
     border: 1px solid #eee;
 }
-
 .selector-option .preview-voice-btn {
     font-size: 12px;
     padding: 2px 8px;
@@ -3222,4 +3275,60 @@ body.modal-open {
     font-size: 14px;
     width: 14px;
     height: 14px;
+}
+
+/* ==================== Settings Rows ==================== */
+.setting-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 10px 0;
+}
+.setting-row + .setting-row {
+    border-top: 1px solid #f0f0f0;
+}
+.setting-label {
+    width: 90px;
+    min-width: 90px;
+    padding-top: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    text-align: right;
+}
+.setting-control {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.setting-control .platform-selector {
+    display: inline-flex;
+}
+
+.voice-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* 配音设置区域整体间距 */
+.settings-group {
+    margin-bottom: 20px;
+}
+.settings-group-title {
+    margin-bottom: 12px;
+}
+
+/* 滑块行间距 */
+.range-slider {
+    margin: 10px 0;
+}
+.range-slider label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

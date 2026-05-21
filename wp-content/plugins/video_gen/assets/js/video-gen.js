@@ -190,7 +190,7 @@ jQuery(document).ready(function($) {
     function fetchLazyData(resource, params) {
         var cacheKey = resource + '_' + JSON.stringify(params || {});
         if (lazyCache[cacheKey]) {
-            return $.Deferred().resolve(lazyCache[cacheKey]).promise();
+            return $.Deferred().resolve(lazyCache[cacheKey].slice()).promise();
         }
 
         var actionMap = {
@@ -217,8 +217,8 @@ jQuery(document).ready(function($) {
             dataType: 'json'
         }).then(function(response) {
             if (response && response.success) {
-                lazyCache[cacheKey] = response.data;
-                return response.data;
+                lazyCache[cacheKey] = response.data.slice();
+                return lazyCache[cacheKey];
             }
             return [];
         }, function(xhr, status, error) {
@@ -234,6 +234,7 @@ jQuery(document).ready(function($) {
             '<div class="selector-modal-content">' +
             '<div class="selector-modal-header">' +
             '<h2>' + title + '</h2>' +
+            '<input type="text" class="modal-search-input" placeholder="搜索...">' +
             '<span class="selector-modal-close">&times;</span>' +
             '</div>' +
             '<div class="' + listClass + ' selector-list"><p class="loading-text">加载中...</p></div>' +
@@ -259,6 +260,17 @@ jQuery(document).ready(function($) {
         });
     }
 
+    // 搜索过滤
+    function bindSearchFilter($modal, itemSelector) {
+        $modal.find('.modal-search-input').on('input', function() {
+            var keyword = $(this).val().toLowerCase();
+            $modal.find(itemSelector).each(function() {
+                var text = $(this).text().toLowerCase();
+                $(this).toggle(text.indexOf(keyword) > -1);
+            });
+        }).focus();
+    }
+
     // ==================== 平台选择弹层 ====================
     function showPlatformModal() {
         $('.selector-modal-overlay').remove();
@@ -272,7 +284,7 @@ jQuery(document).ready(function($) {
                 html += '<div class="platform-option" data-platform="' + p.platform_code + '">' +
                     '<span class="platform-name-text">' + p.platform_name + '</span>';
                 if (p.platform_desc && p.platform_desc.trim() !== '') {
-                    html += '<i class="dashicons dashicons-info-outline platform-tooltip" title="' + p.platform_desc + '"></i>';
+                    html += '<span class="platform-desc-text">' + p.platform_desc + '</span>';
                 }
                 html += '</div>';
             });
@@ -282,10 +294,12 @@ jQuery(document).ready(function($) {
                 e.preventDefault(); e.stopPropagation();
                 var code = $(this).data('platform');
                 var name = $(this).find('.platform-name-text').text();
-                $('.platform-name').text(name);
+                $('#selected-platform .platform-name').text(name);
                 $('#platform').val(code);
                 closeSelectorModal($modal);
             });
+
+            bindSearchFilter($modal, '.platform-option');
         });
 
         bindModalEvents($modal, function() { closeSelectorModal($modal); });
@@ -306,6 +320,7 @@ jQuery(document).ready(function($) {
                     '<span class="option-extra">消耗' + m.credit + '积分</span></div>';
             });
             $modal.find('.model-list').html(html);
+            bindSearchFilter($modal, '.model-option');
 
             $modal.find('.model-option').on('click', function(e) {
                 e.preventDefault(); e.stopPropagation();
@@ -345,6 +360,7 @@ jQuery(document).ready(function($) {
                 html += '</div>';
             });
             $modal.find('.style-list').html(html);
+            bindSearchFilter($modal, '.style-option');
 
             $modal.find('.style-option').on('click', function(e) {
                 e.preventDefault(); e.stopPropagation();
@@ -412,6 +428,7 @@ jQuery(document).ready(function($) {
                 html += '</div>';
             });
             $modal.find('.voice-list').html(html);
+            bindSearchFilter($modal, '.voice-option');
 
             $modal.find('.voice-option').on('click', function(e) {
                 if ($(e.target).is('.preview-voice-btn')) return;
@@ -419,7 +436,14 @@ jQuery(document).ready(function($) {
                 var val = $(this).data('value');
                 var name = $(this).data('name');
                 $(displayId).text(name);
-                $('select[name="' + inputName + '"]').val(val);
+                // 更新 hidden select: 直接替换选项确保值正确
+                var $select = $('select[name="' + inputName + '"]');
+                // 如果选中的声音已在用户训练列表中，直接选中；否则替换默认选项
+                if ($select.find('option[value="' + val + '"]').length) {
+                    $select.val(val);
+                } else {
+                    $select.find('option:first').replaceWith('<option value="' + val + '" selected>' + name + '</option>');
+                }
                 $('.selector-option').removeClass('selected');
                 $(this).addClass('selected');
                 closeSelectorModal($modal);
@@ -559,13 +583,13 @@ jQuery(document).ready(function($) {
     function toggleVoiceSettings() {
         var voiceCreateType = $('#voice_create_type').val();
         if (voiceCreateType === 'edge') {
-            $('#selected-edge-voice').closest('.platform-selector').show();
-            $('#selected-fish-voice').closest('.platform-selector').hide();
-            $('#voice_type').closest('label').hide();
+            $('#voice-edge-row').show();
+            $('#voice-fish-row').hide();
+            $('#voice-type-row').hide();
         } else {
-            $('#selected-edge-voice').closest('.platform-selector').hide();
-            $('#selected-fish-voice').closest('.platform-selector').show();
-            $('#voice_type').closest('label').show();
+            $('#voice-edge-row').hide();
+            $('#voice-fish-row').show();
+            $('#voice-type-row').show();
         }
     }
 
@@ -1146,16 +1170,6 @@ jQuery(document).ready(function($) {
 
     // ==================== 固定底部按钮和24小时限制功能 ====================
 
-    function createFixedSubmitBar() {
-        if ($('.fixed-submit-bar').length) return;
-        var barHtml = '<div class="fixed-submit-bar" id="fixed-submit-bar">' +
-            '<div class="fixed-submit-content">' +
-            '<div class="fixed-submit-tip"><span id="submit-count-tip">填写完成后点击提交</span></div>' +
-            '<input type="button" name="submit" id="fixed-submit" class="page-title-action btn-add-new" value="开始生成">' +
-            '</div></div>';
-        $('body').append(barHtml);
-    }
-
     function createLimitModal() {
         if ($('.limit-exceeded-modal').length) return;
         var modalHtml = '<div class="limit-exceeded-modal" id="limit-exceeded-modal" style="display: none;">' +
@@ -1173,18 +1187,11 @@ jQuery(document).ready(function($) {
     }
 
     function showFixedBar() {
-        createFixedSubmitBar();
-        $('.fixed-submit-bar').addClass('show');
-        updateFixedBarPosition();
+        $('#fixed-submit').addClass('show');
     }
 
     function hideFixedBar() {
-        $('.fixed-submit-bar').removeClass('show');
-    }
-
-    function updateFixedBarPosition() {
-        var footerHeight = $('#wpfooter').outerHeight() || 0;
-        $('.fixed-submit-bar').css('bottom', footerHeight + 'px');
+        $('#fixed-submit').removeClass('show');
     }
 
     function checkSubmitLimit() {
@@ -1306,10 +1313,6 @@ jQuery(document).ready(function($) {
             $('#fixed-submit').prop('disabled', disabled);
         });
         
-        // 窗口大小变化时更新位置
-        $(window).on('resize', function() {
-            updateFixedBarPosition();
-        });
     }
 
     // ==================== 固定底部按钮功能结束 ====================

@@ -3678,7 +3678,7 @@ th.sortable a, th.sorted a {
 
     .mode-card-label,
     .source-card-label {
-        min-height: 100px;
+        min-height: 30px;
         padding: 16px 12px;
     }
 
@@ -3717,8 +3717,12 @@ th.sortable a, th.sorted a {
         padding: 16px;
     }
 
+    .video-settings-panel {
+        padding: 12px;
+    }
+
     .settings-group {
-        padding: 16px;
+        padding: 8px;
         margin-bottom: 16px;
     }
 
