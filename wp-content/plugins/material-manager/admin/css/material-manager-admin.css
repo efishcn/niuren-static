@@ -1,75 +1,9 @@
 /**
- * 通用样式
+ * Material Manager - 插件特有样式
+ * 通用样式由 content-viewer-common.css 提供
  */
-.wrap h1.wp-heading-inline {
-    margin-right: 10px;
-}
 
-/* 表格样式 */
-.wp-list-table .column-preview {
-    width: 120px;
-}
-
-.wp-list-table .column-file_size,
-.wp-list-table .column-duration,
-.wp-list-table .column-source_type,
-.wp-list-table .column-status,
-.wp-list-table .column-hot,
-.wp-list-table .column-recommend,
-.wp-list-table .column-use_times {
-    width: 100px;
-    text-align: center;
-}
-
-.wp-list-table .column-create_time {
-    width: 150px;
-}
-
-/* 预览样式 */
-.material-preview,
-.image-preview,
-.video-preview {
-    position: relative;
-    display: inline-block;
-}
-
-.material-preview img,
-.image-preview img,
-.video-preview img,
-.video-preview video {
-    max-width: 100px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    vertical-align: middle;
-}
-
-.material-preview:hover,
-.image-preview:hover,
-.video-preview:hover {
-    z-index: 100;
-}
-
-.material-preview:hover img,
-.image-preview:hover img {
-    transform: scale(1.5);
-    position: relative;
-}
-
-.video-preview:hover img {
-    display: none;
-}
-
-.video-preview:hover video {
-    position: absolute;
-    left: 0;
-    top: 0;
-    max-width: 300px;
-    transform: scale(1.5);
-    background: #000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-/* 表单样式 */
+/* 表单设置面板 */
 .form-table td p.description {
     margin-top: 5px;
 }
@@ -87,7 +21,7 @@
     margin: 5px 0;
 }
 
-/* 错误信息样式 */
+/* 错误信息 */
 .error-info {
     color: #dc3232;
     cursor: help;
@@ -97,19 +31,7 @@
     text-decoration: underline;
 }
 
-/* 工具提示样式 */
-.tooltip-content {
-    display: none;
-    position: absolute;
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    min-width: 200px;
-    z-index: 100;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* 仪表盘样式 */
+/* 仪表盘 */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -160,7 +82,29 @@
     background: #fff;
 }
 
-/* 标签样式 */
+/* 预览悬浮效果 */
+.material-preview img,
+.image-preview img,
+.video-preview img,
+.video-preview video {
+    max-width: 100px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.material-preview:hover img,
+.image-preview:hover img {
+    transform: scale(1.5);
+    position: relative;
+    z-index: 100;
+}
+
+.video-preview:hover video {
+    max-width: 300px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* 标签容器 */
 .tags-container {
     margin: 10px 0;
 }
@@ -171,20 +115,24 @@
     margin-bottom: 5px;
 }
 
-/* 响应式布局 */
-@media screen and (max-width: 782px) {
-    .wp-list-table .column-preview,
-    .wp-list-table .column-file_size,
-    .wp-list-table .column-duration,
-    .wp-list-table .column-source_type,
-    .wp-list-table .column-status,
-    .wp-list-table .column-hot,
-    .wp-list-table .column-recommend,
-    .wp-list-table .column-use_times,
-    .wp-list-table .column-create_time {
-        width: auto;
-    }
+/* 文件上传包装 */
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
 
+/* 音频播放器关闭按钮 */
+#close-audio-player {
+    font-size: 18px;
+    line-height: 1;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+/* 响应式 */
+@media screen and (max-width: 782px) {
     .stats-grid {
         grid-template-columns: 1fr;
     }

@@ -22,10 +22,27 @@ jQuery(document).ready(function($) {
         initialized: false,
         listPageInitialized: false  // 新增列表页初始化标记
     };
-    
+
     // 防止重复初始化
     if (window.VideoGenAdmin.initialized) {
         return;
+    }
+
+    // 共享的音频预览实例，防止多个音频同时播放重叠
+    var currentPreviewAudio = null;
+
+    function stopPreviewAudio() {
+        if (currentPreviewAudio) {
+            currentPreviewAudio.pause();
+            currentPreviewAudio.currentTime = 0;
+            currentPreviewAudio = null;
+        }
+        // 同时停止 DOM 中的 audio-preview-player
+        var domPlayer = document.getElementById('audio-preview-player');
+        if (domPlayer) {
+            domPlayer.pause();
+            domPlayer.currentTime = 0;
+        }
     }
     
     // 先解绑所有可能存在的事件处理器
@@ -401,15 +418,17 @@ jQuery(document).ready(function($) {
             // 如果是 fishaudio，追加用户训练声音
             if (voiceType === 'fishaudio') {
                 $('select[name="voice_model"] option').each(function() {
-                    var val = $(this).val();
-                    var txt = $(this).text();
+                    var $opt = $(this);
+                    var val = $opt.val();
+                    var txt = $opt.text();
+                    var previewUrl = $opt.data('preview-url') || '';
                     // 检查是否已在 AJAX 数据中
                     var found = false;
                     $.each(items, function(i, v) {
                         if (v.voice_id === val) { found = true; return false; }
                     });
                     if (!found && val) {
-                        items.push({ voice_id: val, title: txt, voice_type: 'user', preview_url: '' });
+                        items.push({ voice_id: val, title: txt, voice_type: 'user', preview_url: previewUrl });
                     }
                 });
             }
@@ -439,10 +458,12 @@ jQuery(document).ready(function($) {
                 // 更新 hidden select: 直接替换选项确保值正确
                 var $select = $('select[name="' + inputName + '"]');
                 // 如果选中的声音已在用户训练列表中，直接选中；否则替换默认选项
+                var previewUrl = $(this).find('.preview-voice-btn').data('url') || '';
                 if ($select.find('option[value="' + val + '"]').length) {
                     $select.val(val);
+                    if (previewUrl) $select.find('option[value="' + val + '"]').attr('data-preview-url', previewUrl);
                 } else {
-                    $select.find('option:first').replaceWith('<option value="' + val + '" selected>' + name + '</option>');
+                    $select.find('option:first').replaceWith('<option value="' + val + '" selected data-preview-url="' + previewUrl + '">' + name + '</option>');
                 }
                 $('.selector-option').removeClass('selected');
                 $(this).addClass('selected');
@@ -452,8 +473,13 @@ jQuery(document).ready(function($) {
             $modal.find('.preview-voice-btn').on('click', function(e) {
                 e.preventDefault(); e.stopPropagation();
                 var url = $(this).data('url');
-                var audio = new Audio(url);
-                audio.play();
+                if (!url) return;
+                stopPreviewAudio();
+                currentPreviewAudio = new Audio(url);
+                currentPreviewAudio.play();
+                currentPreviewAudio.onended = function() {
+                    currentPreviewAudio = null;
+                };
             });
 
             $modal.find('.voice-option[data-value="' + curVal + '"]').addClass('selected');
@@ -469,10 +495,11 @@ jQuery(document).ready(function($) {
 
         fetchLazyData('bgm').then(function(items) {
             var currentVal = $select.data('current-value') || $select.val();
+            var currentUrl = $select.data('current-url') || '';
             $select.empty();
             $.each(items, function(i, m) {
-                var $option = $('<option>').val(m.file_name).text(m.title);
-                if (m.file_name == currentVal) $option.prop('selected', true);
+                var $option = $('<option>').val(m.file_name).text(m.title).attr('data-url', m.file_url);
+                if (m.file_name == currentVal || m.file_url == currentUrl) $option.prop('selected', true);
                 $select.append($option);
             });
             $select.data('lazy-loaded', true).trigger('change');
