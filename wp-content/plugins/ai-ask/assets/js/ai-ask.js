@@ -21,6 +21,60 @@
         marked.setOptions({ breaks: true, gfm: true });
     }
 
+    // 复制图标 SVG
+    const ICON_COPY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+    const ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+    async function copyMessageContent(wrap) {
+        const raw = wrap.dataset.rawContent || '';
+        const btn = wrap.querySelector('.ask-copy-btn');
+        if (!btn) return;
+        try {
+            await navigator.clipboard.writeText(raw);
+        } catch (_) {
+            const ta = document.createElement('textarea');
+            ta.value = raw;
+            ta.style.cssText = 'position:fixed;opacity:0;';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+        btn.innerHTML = ICON_CHECK;
+        btn.classList.add('copied');
+        btn.title = '已复制';
+        clearTimeout(btn._copyTimer);
+        btn._copyTimer = setTimeout(() => {
+            btn.innerHTML = ICON_COPY;
+            btn.classList.remove('copied');
+            btn.title = '复制';
+        }, 2000);
+    }
+
+    function addCopyButton(wrap, rawContent) {
+        wrap.dataset.rawContent = rawContent;
+        const bubble = wrap.querySelector('.ask-bubble');
+        if (!bubble) return;
+        bubble.classList.add('has-copy');
+        const btn = el('button', 'ask-copy-btn');
+        btn.innerHTML = ICON_COPY;
+        btn.title = '复制';
+        btn.onclick = function (e) {
+            e.stopPropagation();
+            copyMessageContent(wrap);
+        };
+        bubble.appendChild(btn);
+        wrap._copyBtn = btn;  // 流式更新 innerHTML 后会销毁，需要引用以便重新挂载
+    }
+
+    // 流式渲染中 innerHTML 被替换后会丢失复制按钮，通过此函数重新挂载
+    function reattachCopyBtn(bubble) {
+        const wrap = bubble.closest('.ask-msg');
+        if (wrap && wrap._copyBtn) {
+            bubble.appendChild(wrap._copyBtn);
+        }
+    }
+
     function renderMarkdown(text) {
         if (!text) return '';
         if (typeof marked === 'undefined') {
@@ -133,6 +187,7 @@
         const bubble = el('div', 'ask-bubble ask-bubble-guide streaming');
         wrap.appendChild(avatar);
         wrap.appendChild(bubble);
+        addCopyButton(wrap, text);
         $('askMessages').appendChild(wrap);
         scrollToBottom();
 
@@ -178,6 +233,7 @@
 
         wrap.appendChild(avatar);
         wrap.appendChild(bubble);
+        addCopyButton(wrap, content);
         $('askMessages').appendChild(wrap);
         scrollToBottom();
         return bubble;
@@ -358,10 +414,13 @@
                         if (json.error) {
                             assistantBubble.innerHTML = '<span style="color:#ef4444">错误: ' +
                                 json.error.replace(/</g, '&lt;') + '</span>';
+                            reattachCopyBtn(assistantBubble);
                         } else if (json.content) {
                             rawContent += json.content;
+                            assistantBubble.closest('.ask-msg').dataset.rawContent = rawContent;
                             // 流式重渲染 markdown
                             assistantBubble.innerHTML = renderMarkdown(rawContent);
+                            reattachCopyBtn(assistantBubble);
                             scrollToBottom();
                         }
                     } catch (_) {}
@@ -372,7 +431,10 @@
         } finally {
             assistantBubble.classList.remove('streaming');
             // 流结束后做一次完整渲染（修正流式过程中可能不完整的 markdown 节点）
-            if (rawContent) assistantBubble.innerHTML = renderMarkdown(rawContent);
+            if (rawContent) {
+                assistantBubble.innerHTML = renderMarkdown(rawContent);
+                reattachCopyBtn(assistantBubble);
+            }
             isStreaming = false;
             $('askSendBtn').disabled = false;
 
